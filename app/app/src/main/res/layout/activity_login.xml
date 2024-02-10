@@ -5,69 +5,121 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/loginbg"
+    android:background="@color/white"
     tools:context=".LoginActivity">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:background="@drawable/custom_edittext"
-        android:outlineAmbientShadowColor="@color/black"
-        android:outlineSpotShadowColor="@color/black"
-        app:cardCornerRadius="40dp"
-        app:cardElevation="30dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bluebox"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="250dp">
+
+        <ImageView
+            android:layout_width="324dp"
+            android:layout_height="171dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/whitelogo"
+            android:backgroundTint="@color/white"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/custom_box">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Login"
+                android:textColor="@color/black"
+                android:textSize="35dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="310dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="40dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:textAlignment="center"
-                android:textColor="@color/purple"
-                android:textSize="36sp"
-                android:textStyle="bold" />
+                android:textColor="@color/gray"
+                android:backgroundTintMode="@color/black"
+                android:text="Email"
+                android:textSize="20dp"/>
 
             <EditText
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_width="323dp"
+                android:layout_height="38dp"
                 android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/sharp_account_circle_24"
-                android:drawablePadding="8dp"
-                android:hint="Email"
-                android:padding="15dp"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                android:inputType="textEmailAddress"
+                android:paddingLeft="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="40dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:backgroundTintMode="@color/black"
+                android:text="Password"
+                android:textSize="20dp"/>
 
             <EditText
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_width="321dp"
+                android:layout_height="38dp"
                 android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/baseline_lock_24"
-                android:drawablePadding="8dp"
-                android:hint="Password"
                 android:inputType="textPassword"
-                android:padding="15dp"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                android:paddingLeft="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="40dp">
 
             <Button
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/custom_edittext"
+                android:id="@+id/login"
+                android:layout_width="318dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blue"
+                android:shadowColor="@color/black"
+                android:stateListAnimator="@drawable/animation"
                 android:text="Login"
-                android:textSize="25dp"/>
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

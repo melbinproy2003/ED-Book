@@ -18,21 +18,25 @@ public class Chat extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.bottom_chat);
 
         bottomNavigationView.setOnItemSelectedListener(item ->{
-            switch (item.getItemId()){
-                case R.id.bottom_home:
-                    startActivity(new Intent(getApplicationContext(),Home.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                    finish();
-                    return true;
-                case R.id.bottom_chat:
-                    return true;
-                case R.id.bottom_Myaccount:
-                    startActivity(new Intent(getApplicationContext(), Myaccount.class));
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                    finish();
-                    return true;
+
+            int itemid = item.getItemId();
+
+            if(itemid == R.id.bottom_home){
+                startActivity(new Intent(getApplicationContext(),Home.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+                return true;
+            } else if (itemid == R.id.bottom_chat) {
+                return true;
+            } else if (itemid == R.id.bottom_Myaccount) {
+                startActivity(new Intent(getApplicationContext(), Myaccount.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+                return true;
+            }else {
+                return false;
             }
-            return false;
+
         });
     }
 }

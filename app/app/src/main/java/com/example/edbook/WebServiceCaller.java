@@ -18,8 +18,8 @@ final public class WebServiceCaller {
 
 
     public void setSoapObject(String methodName) {
-        request = new SoapObject("http://WebService/", methodName);
-        url = "http://172.20.10.8:8084/Gaming_Aegis/AndroidWebService";
+        request = new SoapObject("http://DB/", methodName);
+        url = "http://192.168.81.97:8084/ED-Book/NewWebService";
     }
 
     public void addProperty(String key, Object value){

@@ -5,120 +5,120 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bluebox"
         android:layout_margin="10dp"
+        android:background="@drawable/bluebox"
         android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="250dp">
-
-        <ImageView
-            android:layout_width="324dp"
-            android:layout_height="171dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/whitelogo"
-            android:backgroundTint="@color/white"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/custom_box">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="50dp">
+            android:layout_height="250dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Login"
-                android:textColor="@color/black"
-                android:textSize="35dp"
-                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="324dp"
+                android:layout_height="171dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/whitelogo" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="40dp">
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_box"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="50dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Login"
+                    android:textColor="@color/black"
+                    android:textSize="35dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:backgroundTintMode="@color/black"
-                android:text="Email"
-                android:textSize="20dp"/>
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical">
 
-            <EditText
-                android:layout_width="323dp"
-                android:layout_height="38dp"
-                android:background="@drawable/custom_edittext"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="5dp"/>
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTintMode="@color/black"
+                    android:text="Email"
+                    android:textColor="@color/gray"
+                    android:textSize="20dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="40dp">
+                <EditText
+                    android:id="@+id/loginEmail"
+                    android:layout_width="323dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/custom_edittext"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="5dp" />
+            </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:backgroundTintMode="@color/black"
-                android:text="Password"
-                android:textSize="20dp"/>
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical">
 
-            <EditText
-                android:layout_width="321dp"
-                android:layout_height="38dp"
-                android:background="@drawable/custom_edittext"
-                android:inputType="textPassword"
-                android:paddingLeft="5dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTintMode="@color/black"
+                    android:text="Password"
+                    android:textColor="@color/gray"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/loginPassword"
+                    android:layout_width="321dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/custom_edittext"
+                    android:inputType="textPassword"
+                    android:paddingLeft="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/login"
+                    android:layout_width="318dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/blue"
+                    android:stateListAnimator="@anim/animation"
+                    android:text="Login"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="40dp">
-
-            <Button
-                android:id="@+id/login"
-                android:layout_width="318dp"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/blue"
-                android:shadowColor="@color/black"
-                android:stateListAnimator="@drawable/animation"
-                android:text="Login"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
     </LinearLayout>
 

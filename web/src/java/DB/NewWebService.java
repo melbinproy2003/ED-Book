@@ -40,19 +40,34 @@ public class NewWebService {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "hdffyhdty")
-    public String hdffyhdty(@WebParam(name = "email") String email, @WebParam(name = "password") String password) {
-        //TODO write your implementation code here:
-        return null;
-    }
+    @WebMethod(operationName = "studentprofile")
+    public String studentprofile(@WebParam(name = "id") String id) {
+        String profiledata = "select * from tbl_student s inner join tbl_place p on s.place_id=p.place_id inner join "
+                + "tbl_district d on p.district_id=d.district_id inner join tbl_course c on s.course_id=c.course_id "
+                + "inner join tbl_department dep on s.department_id=dep.department_id inner join tbl_departmenttype dept on dep.departmenttype_id=dept.departmenttype_id "
+                + "inner join tbl_batch b on s.batch_id=b.batch_id where s.student_id='" + id + "'";
+        ResultSet profile = con.selectCommand(profiledata);
+        JSONArray j = new JSONArray();
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "operation")
-    public String operation() {
-        //TODO write your implementation code here:
-        return null;
+        try {
+            if (profile.next()) {
+                JSONObject jo = new JSONObject();
+                jo.put("name", profile.getString("student_name"));
+                jo.put("email", profile.getString("student_email"));
+                jo.put("address", profile.getString("student_address"));
+                jo.put("district", profile.getString("district_name"));
+                jo.put("place", profile.getString("place_name"));
+                jo.put("dob", profile.getString("student_dob"));
+                jo.put("gender", profile.getString("student_gender"));
+                jo.put("department", profile.getString("departmenttype_name"));
+                jo.put("coure", profile.getString("course_name"));
+                jo.put("batch", profile.getString("batch_name"));
+                jo.put("contact", profile.getString("student_contact"));
+                j.put(jo);
+            }
+        } catch (SQLException |JSONException ex) {
+            Logger.getLogger(NewWebService.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return j.toString();
     }
-
 }

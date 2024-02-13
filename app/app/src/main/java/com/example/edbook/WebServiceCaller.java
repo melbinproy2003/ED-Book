@@ -19,7 +19,7 @@ final public class WebServiceCaller {
 
     public void setSoapObject(String methodName) {
         request = new SoapObject("http://DB/", methodName);
-        url = "http://192.168.81.97:8084/ED-Book/NewWebService";
+        url = "http://192.168.73.97:8084/ED-Book/NewWebService";
     }
 
     public void addProperty(String key, Object value){

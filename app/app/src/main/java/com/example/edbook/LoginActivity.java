@@ -39,9 +39,6 @@ public class LoginActivity extends AppCompatActivity {
                 Password = password.getText().toString();
                 LoginDetails l = new LoginDetails();
                 l.execute(Email, Password);
-
-
-
             }
         });
     }

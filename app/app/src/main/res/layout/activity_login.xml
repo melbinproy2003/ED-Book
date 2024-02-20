@@ -62,13 +62,15 @@
                     android:layout_height="wrap_content"
                     android:backgroundTintMode="@color/black"
                     android:text="Email"
-                    android:textColor="@color/gray"
+                    android:textColor="@color/black"
                     android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/loginEmail"
                     android:layout_width="323dp"
                     android:layout_height="38dp"
+                    android:hint="Enter email"
+                    android:textColorHint="@color/gray"
                     android:background="@drawable/custom_edittext"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="5dp" />
@@ -86,13 +88,15 @@
                     android:layout_height="wrap_content"
                     android:backgroundTintMode="@color/black"
                     android:text="Password"
-                    android:textColor="@color/gray"
+                    android:textColor="@color/black"
                     android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/loginPassword"
                     android:layout_width="321dp"
                     android:layout_height="38dp"
+                    android:hint="Enter Password"
+                    android:textColorHint="@color/gray"
                     android:background="@drawable/custom_edittext"
                     android:inputType="textPassword"
                     android:paddingLeft="5dp" />

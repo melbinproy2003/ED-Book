@@ -32,10 +32,12 @@
             android:orientation="vertical"
             android:layout_gravity="center">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/whitelogo"/>
+            android:src="@drawable/whitelogo"
+            app:shapeAppearanceOverlay="@style/circle"/>
         </LinearLayout>
 
             <LinearLayout
@@ -92,7 +94,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="student@gmail.com"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -116,7 +117,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="Housename(H), Postoffice p.o"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -140,7 +140,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="Pathanamthitta"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -164,7 +163,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="Ranny"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -188,7 +186,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="19-08-2003"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -212,7 +209,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="Male"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -236,7 +232,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="9856348756"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -260,7 +255,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="Computer Science"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -284,7 +278,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="BCA"
                     android:textSize="22dp"/>
             </LinearLayout>
 
@@ -308,7 +301,6 @@
                     android:layout_width="321dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="6th"
                     android:textSize="22dp"/>
             </LinearLayout>
 

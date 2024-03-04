@@ -20,7 +20,7 @@
     <body>
         <%
             if (request.getParameter("save") != null) {
-                if (request.getParameter("update") != null) {
+                if (!request.getParameter("update").equals("")) {
                     String id = request.getParameter("update");
                     String subject = request.getParameter("subject");
                     String course = request.getParameter("course");

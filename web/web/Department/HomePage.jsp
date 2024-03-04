@@ -39,6 +39,8 @@
                         <%
                         out.print(selpost.getString("post_content"));
                         %>
+                        <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
                         <br><br>
                         <%
                     }
@@ -56,7 +58,9 @@
                             <%
                             out.print(selpost.getString("post_content"));
                             %>
-                            <br><br>
+                            <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
+                        <br><br>
                             <%
                         }
                     }
@@ -77,7 +81,9 @@
                             <%
                             out.print(selpost.getString("post_content"));
                             %>
-                            <br><br>
+                            <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
+                        <br><br>
                             <%
                         }
                         if(status.equals("3")){
@@ -94,7 +100,9 @@
                                 <%
                                 out.print(selpost.getString("post_content"));
                                 %>
-                                <br><br>
+                                <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
+                        <br><br>
                                 <%
                             }
                         }
@@ -119,7 +127,9 @@
                             <%
                             out.print(selpost.getString("post_content"));
                             %>
-                            <br><br>
+                            <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
+                        <br><br>
                             <%
                         }
                         if(status.equals("5")){
@@ -136,7 +146,9 @@
                                 <%
                                 out.print(selpost.getString("post_content"));
                                 %>
-                                <br><br>
+                                <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
+                        <br><br>
                                 <%
                             }
                         }

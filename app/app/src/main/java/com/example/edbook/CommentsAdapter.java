@@ -47,7 +47,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.MyView
 //        Picasso.get().load(url+Profile[position]).into(holder.profile);
 //        Picasso.get().load(url+Post[position]).into(holder.post);
         holder.nameText.setText(Name[position]);
-        holder.commentText.setText(Comment[position])
+        holder.commentText.setText(Comment[position]);
         holder.date.setText(Date[position]);
     }
 

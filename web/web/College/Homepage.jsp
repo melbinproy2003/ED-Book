@@ -40,6 +40,8 @@
                         <%
                         out.print(selpost.getString("post_content"));
                         %>
+                        <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
                         <br><br>
                         <%
                     }
@@ -57,6 +59,8 @@
                             <%
                             out.print(selpost.getString("post_content"));
                             %>
+                            <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
                             <br><br>
                             <%
                         }
@@ -81,6 +85,8 @@
                             <%
                             out.print(selpost.getString("post_content"));
                             %>
+                            <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
                             <br><br>
                             <%
                         }
@@ -98,6 +104,8 @@
                                 <%
                                 out.print(selpost.getString("post_content"));
                                 %>
+                                <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
                                 <br><br>
                                 <%
                             }
@@ -123,6 +131,8 @@
                             <%
                             out.print(selpost.getString("post_content"));
                             %>
+                            <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
                             <br><br>
                             <%
                         }
@@ -140,6 +150,8 @@
                                 <%
                                 out.print(selpost.getString("post_content"));
                                 %>
+                                <br>
+                        <a href="Comments.jsp?pid=<%=selpost.getString("post_id")%>">comment box</a>
                                 <br><br>
                                 <%
                             }

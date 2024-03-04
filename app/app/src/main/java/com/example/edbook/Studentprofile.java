@@ -1,5 +1,7 @@
 package com.example.edbook;
 
+import static com.example.edbook.WebServiceCaller.ip;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,8 +9,11 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +21,7 @@ import org.json.JSONObject;
 
 public class Studentprofile extends AppCompatActivity {
 
-    String id,Name,Address,District,Place,Dob,Gender,Department,Course,Batch,Contact,Email;
+    String id;
     TextView name;
     TextView address;
     TextView district;
@@ -28,6 +33,8 @@ public class Studentprofile extends AppCompatActivity {
     TextView batch;
     TextView contact;
     TextView email;
+    ImageView photo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,7 @@ public class Studentprofile extends AppCompatActivity {
         batch = findViewById(R.id.batch);
         contact = findViewById(R.id.contact);
         email = findViewById(R.id.email);
+        photo = findViewById(R.id.photo);
         SharedPreferences sh=getSharedPreferences("user",MODE_PRIVATE);
         id=sh.getString("id","");
         Log.d("err",id);
@@ -68,7 +76,8 @@ public class Studentprofile extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(Studentprofile.this, s, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(Studentprofile.this, s, Toast.LENGTH_SHORT).show();
+            String  url = "http://"+ip+":8084/ED-Book/Assets/Files/Student/";
 //            Toast.makeText(Studentprofile.this, s, Toast.LENGTH_SHORT).show();
 //            if (!s.equals("[]")) {
                 JSONArray j = null;
@@ -82,10 +91,11 @@ public class Studentprofile extends AppCompatActivity {
                     palce.setText(jo.getString("place"));
                     dob.setText(jo.getString("dob"));
                     gender.setText(jo.getString("gender"));
-                    department.setText(jo.getString("departemnt"));
+                    department.setText(jo.getString("department"));
                     course.setText(jo.getString("course"));
                     batch.setText(jo.getString("batch"));
                     contact.setText(jo.getString("contact"));
+                    Picasso.get().load(url+jo.getString("profile")).into(photo);
 
 //                    Toast.makeText(Studentprofile.this, "success", Toast.LENGTH_SHORT).show();
 

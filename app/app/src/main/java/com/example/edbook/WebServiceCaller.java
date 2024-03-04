@@ -8,7 +8,7 @@ import org.ksoap2.transport.HttpTransportSE;
 
 
 final public class WebServiceCaller {
-
+    public static final String ip = "192.168.239.97";
     private String response;
     private int responseCode;
     private SoapObject request;
@@ -19,7 +19,7 @@ final public class WebServiceCaller {
 
     public void setSoapObject(String methodName) {
         request = new SoapObject("http://DB/", methodName);
-        url = "http://192.168.73.97:8084/ED-Book/NewWebService";
+        url = "http://"+ip+":8084/ED-Book/NewWebService";
     }
 
     public void addProperty(String key, Object value){

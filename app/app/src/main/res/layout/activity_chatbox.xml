@@ -62,47 +62,7 @@
            android:layout_height="0dip"
            android:orientation="vertical"
            android:layout_weight="12">
-           <LinearLayout
-               android:id="@+id/linear"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical"
-               android:layout_marginTop="10dp">
 
-               <!--               Receiving-->
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:background="@drawable/postbox"
-                   android:paddingLeft="10dp">
-
-                   <TextView
-                       android:layout_width="81dp"
-                       android:layout_height="match_parent"
-                       android:text="hello"
-                       android:textSize="30dp" />
-
-               </LinearLayout>
-               <!--               End Receiving-->
-
-               <!--               Reply-->
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:background="@drawable/postbox"
-                   android:paddingLeft="10dp"
-                   android:layout_gravity="right">
-
-                   <TextView
-                       android:layout_width="81dp"
-                       android:layout_height="match_parent"
-                       android:text="hello"
-                       android:textSize="30dp" />
-
-               </LinearLayout>
-               <!--               End Reply-->
-
-           </LinearLayout>
        </ScrollView>
 
 <!--Message entering area-->
@@ -120,6 +80,7 @@
                android:background="@drawable/postbox">
 
                <EditText
+                   android:id="@+id/sentmessage"
                    android:layout_width="298dp"
                    android:layout_height="wrap_content"
                    android:layout_gravity="center"

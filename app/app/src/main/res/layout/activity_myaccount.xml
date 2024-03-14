@@ -81,34 +81,34 @@
 
                 <Button
                     android:id="@+id/myprofile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/sharp_account_circle_24"
-                    android:text="My Profile"
-                    android:textColor="@color/white"
                     android:backgroundTint="@color/blue"
-                    android:stateListAnimator="@anim/animation"/>
+                    android:drawableLeft="@drawable/sharp_account_circle_24"
+                    android:stateListAnimator="@anim/animation"
+                    android:text="My Profile"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/sharp_account_circle_24"
-                    android:text="My Profile"
+                    android:drawableLeft="@drawable/baseline_lock_24"
+                    android:text="change password"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/blue"
                     android:stateListAnimator="@anim/animation"/>
 
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/sharp_account_circle_24"
-                    android:text="My Profile"
-                    android:textColor="@color/white"
                     android:backgroundTint="@color/blue"
-                    android:stateListAnimator="@anim/animation"/>
+                    android:drawableLeft="@drawable/sharp_account_circle_24"
+                    android:stateListAnimator="@anim/animation"
+                    android:text="My Profile"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

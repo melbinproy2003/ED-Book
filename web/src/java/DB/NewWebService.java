@@ -93,6 +93,9 @@ public class NewWebService {
 
             String sel = "select * from tbl_post";
             ResultSet selpost = con.selectCommand(sel);
+            String universityurl = ":8084/ED-Book/Assets/Files/University/";
+            String collegeurl = ":8084/ED-Book/Assets/Files/College/";
+            String departmenturl = ":8084/ED-Book/Assets/Files/Department/";
             while (selpost.next()) {
                 JSONObject jo = new JSONObject();
                 String status = selpost.getString("post_status");
@@ -105,10 +108,11 @@ public class NewWebService {
                         ResultSet uni = con.selectCommand(select);
                         uni.next();
                         jo.put("name", uni.getString("university_name"));
-                        jo.put("profile", selpost.getString("post_file"));
+                        jo.put("profile", uni.getString("university_photo"));
                         jo.put("cid", selpost.getString("post_id"));
                         jo.put("post", selpost.getString("post_file"));
                         jo.put("content", selpost.getString("post_content"));
+                        jo.put("profileurl", universityurl);
                     }
                     if (status.equals("1")) {
                         String university = selpost.getString("university_id");
@@ -121,6 +125,7 @@ public class NewWebService {
                             jo.put("cid", selpost.getString("post_id"));
                             jo.put("post", selpost.getString("post_file"));
                             jo.put("content", selpost.getString("post_content"));
+                            jo.put("profileurl", universityurl);
                         }
                     }
                 } // college
@@ -135,6 +140,7 @@ public class NewWebService {
                         jo.put("cid", selpost.getString("post_id"));
                         jo.put("post", selpost.getString("post_file"));
                         jo.put("content", selpost.getString("post_content"));
+                        jo.put("profileurl", collegeurl);
                     }
                     if (status.equals("3")) {
                         String college = selpost.getString("college_id");
@@ -147,6 +153,7 @@ public class NewWebService {
                             jo.put("cid", selpost.getString("post_id"));
                             jo.put("post", selpost.getString("post_file"));
                             jo.put("content", selpost.getString("post_content"));
+                            jo.put("profileurl", collegeurl);
                         }
                     }
                 } //Department
@@ -165,6 +172,7 @@ public class NewWebService {
                             jo.put("cid", selpost.getString("post_id"));
                             jo.put("post", selpost.getString("post_file"));
                             jo.put("content", selpost.getString("post_content"));
+                            jo.put("profileurl", departmenturl);
                         }
                         if (status.equals("5")) {
                             String department = selpost.getString("department_id");
@@ -177,6 +185,7 @@ public class NewWebService {
                                 jo.put("cid", selpost.getString("post_id"));
                                 jo.put("post", selpost.getString("post_file"));
                                 jo.put("content", selpost.getString("post_content"));
+                                jo.put("profileurl", departmenturl);
                             }
                         }
                     }
@@ -199,9 +208,9 @@ public class NewWebService {
     public String viewComment(@WebParam(name = "id") String id) {
         try {
             //TODO write your implementation code here:
-            String select = "select * from tbl_comment where post_id='" + id + "'";
+            String select = "select * from tbl_comment where post_id='" + id + "' order by comment_id DESC";
             ResultSet rc = con.selectCommand(select);
-            System.out.println(select);
+//            System.out.println(select);
             JSONArray j = new JSONArray();
             while (rc.next()) {
                 JSONObject jo = new JSONObject();
@@ -228,13 +237,153 @@ public class NewWebService {
                     jo.put("date", rc.getString("comment_date"));
                 }
                 j.put(jo);
-                
-            }System.out.println(j);
+
+            }
+            System.out.println(j);
             return j.toString();
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(NewWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return "";
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "GetPassword")
+    public String getPassword(@WebParam(name = "id") String id) {
+        //TODO write your implementation code here:
+        String select = "select * from tbl_student where student_id='" + id + "'";
+        ResultSet sp = con.selectCommand(select);
+//        System.out.println(select);
+        JSONArray j = new JSONArray();
+        try {
+            sp.next();
+            JSONObject jo = new JSONObject();
+            jo.put("password", sp.getString("student_password"));
+            j.put(jo);
+        } catch (SQLException | JSONException ex) {
+            Logger.getLogger(NewWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return j.toString();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "SetPassword")
+    public String SetPassword(@WebParam(name = "id") String id, @WebParam(name = "newpassword") String newpassword) {
+        //TODO write your implementation code here:
+        String update = "update tbl_student set student_password='" + newpassword + "' where student_id = '" + id + "'";
+
+        JSONArray j = new JSONArray();
+        JSONObject jo = new JSONObject();
+        if (con.executeCommand(update)) {
+            try {
+                jo.put("message", "Password Changed");
+            } catch (JSONException ex) {
+                Logger.getLogger(NewWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                jo.put("message", "Failed");
+            } catch (JSONException ex) {
+                Logger.getLogger(NewWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        j.put(jo);
+        return j.toString();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "PostComment")
+    public String PostComment(@WebParam(name = "id") String id, @WebParam(name = "comment") String comment, @WebParam(name = "sid") String sid) {
+        //TODO write your implementation code here:
+        String insert = "insert into tbl_comment(comment_date,comment_content,post_id,student_id) values(curdate(),'" + comment + "','" + id + "','" + sid + "')";
+        con.executeCommand(insert);
+        return null;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "chat")
+    public String chat(@WebParam(name = "id") String id) {
+        //TODO write your implementation code here:
+        String select = "select * from tbl_teacher_student_chat where from_student_id='" + id + "' or to_student_id='" + id + "'";
+//        System.out.println(select);
+        ResultSet re = con.selectCommand(select);
+        JSONArray j = new JSONArray();
+        JSONObject jo = new JSONObject();
+        try {
+            while (re.next()) {
+                String fromtid = re.getString("from_teacher_id");
+                if (fromtid.equals("0")) {
+                    String totid = re.getString("to_teacher_id");
+                    String selectT = "select * from tbl_teacher where teacher_id ='" + totid + "'";
+                    ResultSet trs = con.selectCommand(selectT);
+                    trs.next();
+                    jo.put("teacherid", totid);
+                    jo.put("teachername", trs.getString("teacher_name"));
+                    jo.put("teacherphoto", trs.getString("teacher_photo"));
+                } else {
+                    String selectT = "select * from tbl_teacher where teacher_id = '" + fromtid + "'";
+                    ResultSet trs = con.selectCommand(selectT);
+                    trs.next();
+                    jo.put("teacherid", fromtid);
+                    jo.put("teachername", trs.getString("teacher_name"));
+                    jo.put("teacherphoto", trs.getString("teacher_photo"));
+                }
+            }
+            j.put(jo);
+            System.out.println(j);
+        } catch (SQLException | JSONException ex) {
+            Logger.getLogger(NewWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return j.toString();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "viewChat")
+    public String viewChat(@WebParam(name = "sid") String sid, @WebParam(name = "tid") String tid) {
+       
+//            System.out.println(sid);
+//            System.out.println(tid);
+            //TODO write your implementation code here:
+            String select = "select * from tbl_teacher_student_chat where from_student_id='" + sid + "' or to_student_id='" + sid + "'";
+//            System.out.println(select);
+            ResultSet rs = con.selectCommand(select);
+            JSONArray j = new JSONArray();
+            
+        try {
+            while (rs.next()) {
+                JSONObject jo = new JSONObject();
+                String teacherid;
+                String fromteacherid = rs.getString("from_teacher_id");
+                String toteacherid = rs.getString("to_teacher_id");
+                if (fromteacherid.equals("")) {
+                    teacherid = toteacherid;
+                } else {
+                    teacherid = fromteacherid;
+                }
+                String selteacher = "select * from tbl_teacher where teacher_id='" + teacherid + "'";
+                ResultSet res = con.selectCommand(selteacher);
+                res.next();
+                jo.put("name", res.getString("teacher_name"));
+                jo.put("chat", rs.getString("chat_content"));
+                jo.put("chatdate", rs.getString("chat_date"));
+                j.put(jo);
+            }
+        } catch (SQLException | JSONException ex) {
+            Logger.getLogger(NewWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        return j.toString();
     }
 }

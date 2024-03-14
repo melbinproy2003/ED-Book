@@ -1,6 +1,8 @@
 package com.example.edbook;
 
 
+import static com.example.edbook.WebServiceCaller.ip;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +12,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 
+
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
     String pic[], nme[], dte[], matr[];
+    String url = "http://"+ip+":8084/ED-Book/Assets/Files/Teacher/";
     Context context;
     OnItemClickListener itemClickListener;
 
-    public ChatAdapter(Context ct, String name[]) {
+    //    public Adapter(Context ct, String photo[], String name[], String date[], String materials[]) {
+    public ChatAdapter(Context ct, String name[], String photo[]) {
         context = ct;
-//        pic = photo;
+        pic = photo;
         nme = name;
 //        dte = date;
 //        matr = materials;
@@ -44,7 +50,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        Picasso.get().load(pic[position]).into(holder.propic);
+        Picasso.get().load(url+pic[position]).into(holder.propic);
         holder.name.setText(nme[position]);
 //        holder.date.setText(dte[position]);
 //        holder.material.setText(matr[position]);
@@ -52,17 +58,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return pic.length;
+        return nme.length;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-//        ImageView propic;
+                ImageView propic;
+//        TextView name, date, material;
         TextView name;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-//            propic = itemView.findViewById(R.id.imageView4);
+            propic = itemView.findViewById(R.id.teacherpic);
             name = itemView.findViewById(R.id.chatnname);
 //            date = itemView.findViewById(R.id.textview2);
 //            material = itemView.findViewById(R.id.textview3);

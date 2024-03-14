@@ -15,21 +15,21 @@
     </head>
     <body>
         <%
-        if(request.getParameter("save")!=null)
-        {
-            String name=request.getParameter("university");
-            String insQry="insert into tbl_university(university_name)values('"+name+"')";
-            con.executeCommand(insQry);
-        }
-        if (request.getParameter("id")!=null)
-        {
-         String id=request.getParameter("id");
-         String delete="delete from tbl_university where university_id='"+id+"'";
-         con.executeCommand(delete);
-        }
-        
+//        if(request.getParameter("save")!=null)
+//        {
+//            String name=request.getParameter("university");
+//            String insQry="insert into tbl_university(university_name)values('"+name+"')";
+//            con.executeCommand(insQry);
+//        }
+//        if (request.getParameter("id")!=null)
+//        {
+//         String id=request.getParameter("id");
+//         String delete="delete from tbl_university where university_id='"+id+"'";
+//         con.executeCommand(delete);
+//        }
+//        
         %>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data" action="../Assets/ActionPages/UniversityUploadAction.jsp">
             <table border="1" align="center">
                 <tr>
                     <td>
@@ -38,6 +38,10 @@
                     <td>
                         <input type="text" name="university">
                     </td>
+                </tr>
+                <tr>
+                    <td>Add profile</td>
+                    <td><input type="file" name="photo"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
@@ -51,6 +55,7 @@
     <tr>
         <td>S.NO</td>
         <td>University</td>
+        <td>Photo</td>
         <td>Action</td>
     </tr>
     <%
@@ -64,6 +69,9 @@
     <tr>
         <td><%=i%></td>
         <td><%=rs.getString("university_name")%></td>
+        <td>
+            <img src="../Assets/Files/University/<%=rs.getString("university_photo")%>"width="50"/>
+        </td>
         <td><a href="University.jsp?id=<%=rs.getString("university_id")%>">Delete</a></td>
     </tr>
     <%

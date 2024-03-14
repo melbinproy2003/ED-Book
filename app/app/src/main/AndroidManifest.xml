@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Actionbar"
+            android:exported="false" />
+        <activity
             android:name=".Comments"
             android:exported="false" />
         <activity

@@ -56,14 +56,11 @@
        </LinearLayout>
 <!--Ending of Actionbar-->
 
-       <ScrollView
-           android:id="@+id/scroll"
-           android:layout_width="fill_parent"
-           android:layout_height="0dip"
-           android:orientation="vertical"
-           android:layout_weight="12">
-
-       </ScrollView>
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/chatRecyclerview">
+       </androidx.recyclerview.widget.RecyclerView>
 
 <!--Message entering area-->
        <LinearLayout

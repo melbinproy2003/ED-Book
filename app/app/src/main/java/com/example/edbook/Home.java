@@ -27,12 +27,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.w3c.dom.Comment;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements HomeAdapter.OnItemClickListener{
 
 //    ImageButton comment,like;
 
     RecyclerView recyclerView;
-    String name[],content[],post[],profile[],id,cid[];
+    String name[],content[],post[],profile[],id,cid[],profileurl[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +72,7 @@ public class Home extends AppCompatActivity {
         viewpost vp = new viewpost();
         vp.execute(id);
 
-//        comment = findViewById(R.id.commentid);
-//        comment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                showComments();
-//            }
-//        });
+
     }
 
     public class viewpost extends AsyncTask<String, String, String>{
@@ -107,6 +100,7 @@ public class Home extends AppCompatActivity {
                 content = new String[j.length()];
                 post = new String[j.length()];
                 profile = new String[j.length()];
+                profileurl = new String[j.length()];
                 for (int i = 0; i < j.length(); i++) {
                     JSONObject jo = j.getJSONObject(i);
                     cid[i] = jo.getString("cid");
@@ -114,37 +108,44 @@ public class Home extends AppCompatActivity {
                     content[i] = jo.getString("content");
                     post[i] = jo.getString("post");
                     profile[i] = jo.getString("profile");
+                    profileurl[i] = jo.getString("profileurl");
 //                    Toast.makeText(Home.this, name[i], Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            HomeAdapter homeAdapter = new HomeAdapter(Home.this, name, content, post, profile);
-            homeAdapter.setOnItemClickListener(itemClickListener); // Set the click listener
+            HomeAdapter homeAdapter = new HomeAdapter(Home.this, name, content, post, profile,profileurl);
+            homeAdapter.setLikeClickListener((HomeAdapter.OnItemClickListener) Home.this);
+            homeAdapter.setCommentClickListener((HomeAdapter.OnItemClickListener) Home.this);
             recyclerView.setAdapter(homeAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(Home.this));
         }
 
     }
+
+
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Initialize the OnItemClickListener and handle the click events
-        viewpost vp = new viewpost();
-        vp.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                // Handle the item click here
-                Log.d("TAG", "Item clicked at position: " + position);
-                // Example: Start a new activity with the clicked item's data
-                Intent i = new Intent(Home.this, Comments.class);
-                i.putExtra("id", cid[position]);
-                startActivity(i);
-            }
-        });
-
-        vp.execute(id);
+    public void onItemClick(int position) {
+        // Handle item click here
+        Log.d("TAG", "Item clicked at position: " + position);
     }
+
+    @Override
+    public void onLikeClick(int position) {
+        // Handle like button click here
+        Toast.makeText(this, "Like button clicked at position: " + position, Toast.LENGTH_SHORT).show();        // Add your logic for handling like button click
+    }
+
+    @Override
+    public void onCommentClick(int position) {
+        // Handle comment button click here
+          Toast.makeText(this, "Comment button clicked at position: " + position, Toast.LENGTH_SHORT).show();        // Add your logic for handling like button click
+
+        // Add your logic for handling comment button click
+        Intent i = new Intent(Home.this, Comments.class);
+        i.putExtra("id", cid[position]);
+        startActivity(i);
+    }
+
 }

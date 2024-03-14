@@ -1,159 +1,153 @@
 <%-- 
-    Document   : Place
-    Created on : 5 Dec, 2023, 2:35:48 PM
-    Author     : MELBIN
+    Document   : Course
+    Created on : May 5, 2021, 2:10:22 PM
+    Author     : Pro-TECH
 --%>
+<%@page import="java.sql.ResultSet"%>
 <jsp:useBean class="DB.ConnectionClass" id="con"></jsp:useBean>
-<%@page import="java.sql.ResultSet" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Course</title>
+        <%@include file="SessionValidator.jsp" %>
+        <%@include file="Header.jsp" %>
     </head>
+
+    <%     
+
+        if (request.getParameter("btn_save") != null) {
+
+                String insQry = "insert into tbl_course(department_type_id,course_name,sem_count,university_id)values('" + request.getParameter("sel_department_type") + "','" + request.getParameter("txt_course") + "','" + request.getParameter("txt_count") + "','" + request.getParameter("sel_university") + "')";
+                con.executeCommand(insQry);
+                response.sendRedirect("Course.jsp");
+            
+        }
+
+        if (request.getParameter("del") != null) {
+            String delQry = "delete from tbl_course where course_id='" + request.getParameter("del") + "'";
+            con.executeCommand(delQry);
+            response.sendRedirect("Course.jsp");
+        }
+
+
+    %>
     <body>
-        <%
-            if (request.getParameter("save") != null) {
-                if (!request.getParameter("upcourse").equals("")) {
-//             update query
-                    String id = request.getParameter("upcourse");
-                    String course = request.getParameter("course");
-                    String sem = request.getParameter("sem");
-                    String university = request.getParameter("university");
-                    String departmenttype = request.getParameter("departmenttype");
-                    String update = "update tbl_course set course_name='" + course + "',university_id='" + university + "',departmenttype_id='" + departmenttype + "',sem_count='" + sem + "' where course_id='" + id + "'";
-                    con.executeCommand(update);
-                    response.sendRedirect("Course.jsp");
-                } else {
-//             insert query
-                    System.out.print("hello");
-                    String course = request.getParameter("course");
-                    String sem = request.getParameter("sem");
-                    String university = request.getParameter("university");
-                    String departmenttype = request.getParameter("departmenttype");
-                    String insert = "insert into tbl_course (course_name,university_id,departmenttype_id,sem_count)"
-                            + "value('" + course + "','" + university + "','" + departmenttype + "','" + sem + "')";
-                    con.executeCommand(insert);
-                }
-            }
 
-            if (request.getParameter("del") != null) {
-                String id = request.getParameter("del");
-                String delete = "delete from tbl_course where course_id='" + id + "'";
-                con.executeCommand(delete);
-            }
 
-//         select query for update
-            String university = "", departmenttype = "", course = "", count = "", id = "";
-            if (request.getParameter("up") != null) {
-                id = request.getParameter("up");
-                String upid = "select * from tbl_course where course_id='" + id + "'";
-                ResultSet update = con.selectCommand(upid);
-                update.next();
-                university = update.getString("university_id");
-                departmenttype = update.getString("departmenttype_id");
-                course = update.getString("course_name");
-                count = update.getString("sem_count");
-            }
-        %>
-        <form method="post">
-            <table border="1" align="center">
-                <tr>
-                    <td>
-                        University
-                    </td>
-                    <td>
-                        <select name="university">
-                            <option value="">--select--</option>
-                            <%
-                                String select = "select * from tbl_university";
-                                ResultSet rs = con.selectCommand(select);
-                                while (rs.next()) {
-                            %>
-                            <option value="<%=rs.getString("university_id")%>" <% if (rs.getString("university_id").equals(university)) {
-                                    out.print("selected");
-                                }%>><%=rs.getString("university_name")%></option>
-                            <%
-                                }
-                            %>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Department Type
-                    </td>
-                    <td>
-                        <select name="departmenttype">
-                            <option value="">--select--</option>
-                            <%
-                                String selectdepartmenttype = "select * from tbl_departmenttype";
-                                ResultSet dep = con.selectCommand(selectdepartmenttype);
-                                while (dep.next()) {
-                            %>
-                            <option value="<%=dep.getString("departmenttype_id")%>" <% if (dep.getString("departmenttype_id").equals(departmenttype)) {
-                                    out.print("selected");
-                                }%>><%=dep.getString("departmenttype_name")%></option>
-                            <%
-                                }
-                            %>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Course
-                    </td>
-                    <td>
-                        <input type="text" name="course" value="<%=course%>">
-                        <input type="hidden" name="upcourse" value="<%=id%>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Total Semester</td>
-                    <td>
-                        <input type="number" name="sem" value="<%=count%>">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" name="save" value="save">
-                        <input type="reset" name="reset" value="cancel">
-                    </td>
-                </tr>
-            </table>
+        <section class="main_content dashboard_part">
 
-            <!--                    Display inserted items-->
-            <table border="1">
-                <tr>
-                    <th>S.NO</th>
-                    <th>University</th>
-                    <th>Department Type</th>
-                    <th>Course</th>
-                    <th>Total Semester</th>
-                    <th colspan="2" align="center">Action</th>
-                </tr>
-                <%
-                    String selcategory = "select * from tbl_course c inner join tbl_university u on c.university_id=u.university_id inner join tbl_departmenttype d on c.departmenttype_id=d.departmenttype_id";
-                    ResultSet display = con.selectCommand(selcategory);
-                    int i = 0;
-                    while (display.next()) {
-                        i++;
-                %>
-                <tr>
-                    <td><%=i%></td>
-                    <td><%=display.getString("university_name")%></td>
-                    <td><%=display.getString("departmenttype_name")%></td>
-                    <td><%=display.getString("course_name")%></td>
-                    <td><%=display.getString("sem_count")%></td>
-                    <td><a href="Course.jsp?del=<%=display.getString("course_id")%>">Delete</a></td>
-                    <td><a href="Course.jsp?up=<%=display.getString("course_id")%>">Update</a></td>
-                </tr>
-                <%
-                    }
-                %>
-            </table>
-        </form>
+            <!--/ menu  -->
+            <div class="main_content_iner ">
+                <div class="container-fluid p-0">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="QA_section">
+                                <!--Form-->
+                                <div class="white_box_tittle list_header">
+                                    <div class="col-lg-12">
+                                        <div class="white_box mb_30">
+                                            <div class="box_header ">
+                                                <div class="main-title">
+                                                    <h3 class="mb-0" >Table Course</h3>
+                                                </div>
+                                            </div>
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="sel_department_type">Select University</label>
+                                                    <select required="" class="form-control" name="sel_university" id="sel_department_type">
+                                                        <option value="" >Select</option>
+                                                        <%                                                            String disQryu = "select * from tbl_university";
+                                                            ResultSet rs1u = con.selectCommand(disQryu);
+                                                            while (rs1u.next()) {
+                                                        %>
+                                                        <option value="<%=rs1u.getString("university_id")%>" ><%=rs1u.getString("university_name")%></option>
+                                                        <%
+                                                            }
+
+                                                        %>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="sel_department_type">Select Department Type</label>
+                                                    <select required="" class="form-control" name="sel_department_type" id="sel_department_type">
+                                                        <option value="" >Select</option>
+                                                        <%                                                            String disQry = "select * from tbl_department_type";
+                                                            ResultSet rs1 = con.selectCommand(disQry);
+                                                            while (rs1.next()) {
+                                                        %>
+                                                        <option value="<%=rs1.getString("department_type_id")%>" ><%=rs1.getString("department_type_name")%></option>
+                                                        <%
+                                                            }
+
+                                                        %>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txt_course">Course Name</label>
+                                                    <input required="" type="text" class="form-control" id="txt_course" name="txt_course">
+                                                </div>
+                                                 <div class="form-group">
+                                                    <label for="txt_course">Sem Count</label>
+                                                    <input required="" type="text" class="form-control" id="txt_course" name="txt_count">
+                                                </div>
+
+                                                <div class="form-group" align="center">
+                                                    <input type="submit" class="btn-dark" name="btn_save" style="width:100px; border-radius: 10px 5px " value="Save">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="QA_table mb_30">
+                                    <!-- table-responsive -->
+                                    <table class="table lms_table_active">
+                                        <thead>
+                                            <tr style="background-color: #74CBF9">
+                                                <td align="center" scope="col">Sl.No</td>
+                                                <td align="center" scope="col">Department Type</td>
+                                                <td align="center" scope="col">Course</td>
+                                                <td align="center" scope="col">Count</td>
+                                                <td align="center" scope="col">University</td>
+                                                <td align="center" scope="col">Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%                                                int i = 0;
+                                                String selQry = "select * from tbl_course p inner join tbl_department_type d on d.department_type_id=p.department_type_id inner join tbl_university u on u.university_id=p.university_id";
+                                                ResultSet rs = con.selectCommand(selQry);
+                                                while (rs.next()) {
+
+                                                    i++;
+
+                                            %>
+                                            <tr>    
+                                                <td align="center"><%=i%></td>
+                                                <td align="center"><%=rs.getString("department_type_name")%></td>
+                                                <td align="center"><%=rs.getString("course_name")%></td>
+                                                <td align="center"><%=rs.getString("sem_count")%></td>
+                                                <td align="center"><%=rs.getString("university_name")%></td>
+                                                <td align="center"> 
+                                                    <a href="Course.jsp?del=<%=rs.getString("course_id")%>" class="status_btn">Delete</a> 
+                                                </td> 
+                                            </tr>
+                                            <%                      }
+
+
+                                            %>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
     </body>
+    <%@include file="Footer.jsp" %>
 </html>

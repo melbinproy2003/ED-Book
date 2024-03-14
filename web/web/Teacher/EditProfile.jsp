@@ -1,129 +1,115 @@
 <%-- 
-    Document   : Teacherprofile
-    Created on : 19 Dec, 2023, 12:08:35 AM
-    Author     : MELBIN
+    Document   : EditProfile
+    Created on : May 5, 2021, 2:15:04 PM
+    Author     : Pro-TECH
 --%>
+<%@page import="java.sql.ResultSet"%>
 <jsp:useBean class="DB.ConnectionClass" id="con"></jsp:useBean>
-<%@page import="java.sql.ResultSet" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Edit Teacher Profile</title>
+        <title>Edit Profile</title>
+        <%@include file="SessionValidator.jsp" %>
+        <%@include file="Header.jsp" %>
     </head>
     <%
-        if(request.getParameter("save")!=null){
-            String name=request.getParameter("name");
-            String contact=request.getParameter("contact");
-            String email=request.getParameter("email");
-            String address=request.getParameter("address");
-            String place=request.getParameter("place");
-            String dob=request.getParameter("dob");
-            String gender=request.getParameter("gender");
-            String update="update tbl_teacher set teacher_name='"+name+"',teacher_contact='"+contact+"',teacher_email='"+email+"',teacher_address='"+address+"',place_id='"+place+"',teacher_dob='"+dob+"',teacher_gender='"+gender+"' where teacher_id='"+session.getAttribute("teacherid")+"'";
-            con.executeCommand(update);
-            response.sendRedirect("Teacherprofile.jsp");
+        if(request.getParameter("btn_update")!=null)
+        {
+            
+            String upQry = "update tbl_teacher set "
+                    + "teacher_name='"+request.getParameter("txt_name")+"', "
+                    + "teacher_contact='"+request.getParameter("txt_number")+"',"
+                    + "teacher_email='"+request.getParameter("txt_email")+"',"
+                    + "teacher_photo='"+request.getParameter("txt_pic")+"',"
+                    + "teacher_address='"+request.getParameter("txt_address")+"'"
+                    + "where teacher_id='"+session.getAttribute("tid")+"'";
+            con.executeCommand(upQry);
+            response.sendRedirect("ViewProfile.jsp");
+            
         }
-     String select="select * from tbl_teacher s inner join tbl_place p on s.place_id=p.place_id inner join tbl_district d on p.district_id=d.district_id where teacher_id='"+session.getAttribute("teacherid")+"'";
-     ResultSet teacher=con.selectCommand(select);
-     teacher.next();
-     String gender=teacher.getString("teacher_gender");
+    
+    
     %>
     <body>
-        <h1 align="center"> Edit Profile </h1>
+        <div id="tab" align="center">
+        <h1>Edit Profile</h1>
         <form method="post">
-        <table  border="1" align="center">
+        <table border="1">
+            <%
+                String selQry = "select * from tbl_teacher where teacher_id='"+session.getAttribute("tid")+"'";
+                ResultSet rs = con.selectCommand(selQry);
+                if(rs.next())
+                {
+            %>
+            <tr>
+                        <td colspan="2" align="center"><img id="img_pic" src="<%=rs.getString("teacher_photo")%>" style="border-radius: 50%" width="120" height="120">
+                            <input type="file" id="file_pic" style="display: none">
+                            <input type="hidden" id="txt_pic" name="txt_pic">
+                        </td>
+                    </tr>
             <tr>
                 <td>Name</td>
-                <td>
-                    <input type="text" name="name" value="<%=teacher.getString("teacher_name")%>">
-                </td>
+                <td><input type="text" name="txt_name" value="<%=rs.getString("teacher_name")%>"></td>
             </tr>
-            <tr>
+             <tr>
                 <td>Contact</td>
-                <td>
-                    <input type="number" name="contact" value="<%=teacher.getString("teacher_contact")%>">
-                </td>
+                <td><input type="text" name="txt_number" value="<%=rs.getString("teacher_contact")%>"></td>
             </tr>
-            <tr>
+             <tr>
                 <td>Email</td>
-                <td>
-                    <input type="email" name="email" value="<%=teacher.getString("teacher_email")%>">
-                </td>
+                <td><input type="email" name="txt_email" value="<%=rs.getString("teacher_email")%>"></td>
             </tr>
             <tr>
                 <td>Address</td>
-                <td>
-                    <textarea name="address"><%=teacher.getString("teacher_address")%></textarea> 
-                </td>
+                <td><textarea name="txt_address"><%=rs.getString("teacher_address")%></textarea></td>
             </tr>
             <tr>
-                <td>District</td>
-                <td>
-                    <select name="district" onchange="getPlace(this.value)">
-                        <%
-                         String selectdistrict="select * from tbl_district";
-                         ResultSet sd=con.selectCommand(selectdistrict);
-                         while(sd.next())
-                         {
-                        %>
-                            <option value="<%=sd.getString("district_id")%>" <% if(sd.getString("district_id").equals(teacher.getString("district_id"))){out.print("selected"); } %>><%=sd.getString("district_name")%></option>
-                        <%
-                         }
-                        %>
-                    </select>
-                </td>
+                <td colspan="2" align="center"><input type="submit" value="Update" name="btn_update"></td>
             </tr>
-            <tr>
-                <td>Place</td>
-                <td>
-                    <select name="place" id="sel_place">
-                        <%
-                         String selectplace="select * from tbl_place where district_id='"+teacher.getString("district_id")+"'";
-                         ResultSet sp=con.selectCommand(selectplace);
-                         while(sp.next())
-                         {
-                        %>
-                            <option value="<%=sp.getString("place_id")%>" <% if(sp.getString("place_id").equals(teacher.getString("place_id"))){out.print("selected"); } %>><%=sp.getString("place_name")%></option>
-                        <%
-                         }
-                        %>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Date of Birth</td>
-                <td>
-                    <input type="date" name="dob" value="<%=teacher.getString("teacher_dob")%>">
-                </td>
-            </tr>
-            <tr>
-                <td>Gender</td>
-                <td>
-                    <input type="radio" name="gender" <% if(gender.equals("male")){out.println("checked");}%> value="male">Male
-                    <input type="radio" name="gender" <% if(gender.equals("female")){out.println("checked");}%> value="female">Female
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" name="save" value="save">
-                    <input type="reset" name="reset" value="cancel">
-                </td>
-            </tr>
+            <%
+                }
+            %>
         </table>
         </form>
-    </body>
-    <script src="../Assets/JQuery/jQuery.js"></script>
-    <script>
-        function getPlace(did)
-        {
-            $.ajax({
-                url: "../Assets/AjaxPages/AjaxPlace.jsp?did=" + did,
-                success: function(html) {
-                    $("#sel_place").html(html);
-
-                }
+        </div>
+            <%@include file="Footer.jsp" %>
+            <script src="../Assets/JQuery/jQuery.js"></script>
+        <script>
+            $('#img_pic').click(function() {
+                $('#file_pic').trigger('click');
             });
-        }
-    </script>
+
+            // Check for the File API support.
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                document.getElementById('file_pic').addEventListener('change', handleFileSelect, false);
+            } else {
+                alert('The File APIs are not fully supported in this browser.');
+            }
+
+            function handleFileSelect(evt) {
+                var f = evt.target.files[0]; // FileList object
+                var reader = new FileReader();
+                // Closure to capture the file information.
+                reader.onload = (function(theFile) {
+                    return function(e) {
+                        var binaryData = e.target.result;
+                        //Converting Binary Data to base 64
+                        var base64String = window.btoa(binaryData);
+                        //showing file converted to base64
+                        document.getElementById('txt_pic').value = 'data:image/jpeg;base64,' + base64String;
+
+                        //url to image
+                        var url = 'data:image/jpeg;base64,' + base64String;
+                        document.getElementById("img_pic").src=url;
+
+                    };
+                })(f);
+                // Read in the image file as a data URL.
+                reader.readAsBinaryString(f);
+            }
+
+        </script>
+    </body>
 </html>

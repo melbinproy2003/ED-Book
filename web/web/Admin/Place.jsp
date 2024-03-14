@@ -1,63 +1,147 @@
 <%-- 
     Document   : Place
-    Created on : 5 Dec, 2023, 2:35:48 PM
-    Author     : MELBIN
+    Created on : May 5, 2021, 2:10:22 PM
+    Author     : Pro-TECH
 --%>
+<%@page import="java.sql.ResultSet"%>
 <jsp:useBean class="DB.ConnectionClass" id="con"></jsp:useBean>
-<%@page import="java.sql.ResultSet" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Place</title>
+        <%@include file="SessionValidator.jsp" %>
+        <%@include file="Header.jsp" %>
     </head>
+
+    <%        String id = "", name = "", dis = "";
+
+        if (request.getParameter("edit") != null) {
+
+            id = request.getParameter("edit");
+            name = request.getParameter("name");
+            dis = request.getParameter("id");
+
+        }
+
+        if (request.getParameter("btn_save") != null) {
+
+            if (request.getParameter("hid").equals("")) {
+                String insQry = "insert into tbl_place(district_id,place_name)values('" + request.getParameter("sel_district") + "','" + request.getParameter("txt_place") + "')";
+                con.executeCommand(insQry);
+                response.sendRedirect("Place.jsp");
+            } else {
+                String upQry = "update tbl_place set district_id='" + request.getParameter("sel_district") + "',place_name='" + request.getParameter("txt_place") + "' where place_id='" + request.getParameter("hid") + "'";
+                con.executeCommand(upQry);
+                System.out.println(upQry);
+                response.sendRedirect("Place.jsp");
+            }
+        }
+
+        if (request.getParameter("del") != null) {
+            String delQry = "delete from tbl_place where place_id='" + request.getParameter("del") + "'";
+            con.executeCommand(delQry);
+            response.sendRedirect("Place.jsp");
+        }
+
+
+    %>
     <body>
-        <%
-         if(request.getParameter("save")!= null){
-             String place=request.getParameter("place");
-             String district=request.getParameter("district");
-             String insert="insert into tbl_place (district_id,place_name)value('"+district+"','"+place+"')";
-             con.executeCommand(insert);
-         }
-        %>
-        <form method="post">
-            <table border="1" align="center">
-                <tr>
-                    <td>
-                        District
-                    </td>
-                    <td>
-                        <select name="district">
-                            <option value="">--select--</option>
-                            <%
-                         String select="select * from tbl_district";
-                         ResultSet rs=con.selectCommand(select);
-                         while(rs.next())
-                         {
-                        %>
-                            <option value=<%=rs.getString("district_id")%>><%=rs.getString("district_name")%></option>
-                         <%
-                         }
-                        %>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        place
-                    </td>
-                    <td>
-                        <input type="text" name="place">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" name="save" value="save">
-                        <input type="reset" name="reset" value="cancel">
-                    </td>
-                </tr>
-            </table>
-        </form>
+
+
+        <section class="main_content dashboard_part">
+
+            <!--/ menu  -->
+            <div class="main_content_iner ">
+                <div class="container-fluid p-0">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="QA_section">
+                                <!--Form-->
+                                <div class="white_box_tittle list_header">
+                                    <div class="col-lg-12">
+                                        <div class="white_box mb_30">
+                                            <div class="box_header ">
+                                                <div class="main-title">
+                                                    <h3 class="mb-0" >Table Place</h3>
+                                                </div>
+                                            </div>
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="sel_district">Select District</label>
+                                                    <select required="" class="form-control" name="sel_district" id="sel_district">
+                                                        <option value="" >Select</option>
+                                                        <%                                                            String disQry = "select * from tbl_district";
+                                                            ResultSet rs1 = con.selectCommand(disQry);
+                                                            while (rs1.next()) {
+                                                        %>
+                                                        <option value="<%=rs1.getString("district_id")%>" <%if (dis.equals(rs1.getString("district_id"))) {
+                                                                out.println("selected");
+                                                            }%>><%=rs1.getString("district_name")%></option>
+                                                        <%
+                                                            }
+
+                                                        %>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txt_place">Place Name</label>
+                                                    <input required="" type="text" class="form-control" value="<%=name%>" id="txt_place" name="txt_place">
+                                                    <input type="hidden" name="hid" value="<%=id%>">
+                                                </div>
+                                                    <div class="form-group" align="center">
+                                                    <input type="submit" class="btn-dark" name="btn_save" style="width:100px; border-radius: 10px 5px " value="Save">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="QA_table mb_30">
+                                    <!-- table-responsive -->
+                                    <table class="table lms_table_active">
+                                        <thead>
+                                            <tr style="background-color: #74CBF9">
+                                                <td align="center" scope="col">Sl.No</td>
+                                                <td align="center" scope="col">District</td>
+                                                <td align="center" scope="col">Place</td>
+                                                <td align="center" scope="col">Action</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%                                                int i = 0;
+                                                String selQry = "select * from tbl_place p inner join tbl_district d on d.district_id=p.district_id";
+                                                ResultSet rs = con.selectCommand(selQry);
+                                                while (rs.next()) {
+
+                                                    i++;
+
+                                            %>
+                                            <tr>    
+                                                <td align="center"><%=i%></td>
+                                                <td align="center"><%=rs.getString("district_name")%></td>
+                                                <td align="center"><%=rs.getString("place_name")%></td>
+                                                <td align="center"> 
+                                                    <a href="Place.jsp?del=<%=rs.getString("place_id")%>" class="status_btn">Delete</a> &nbsp;&nbsp;&nbsp;&nbsp; 
+                                                    <a class="status_btn" href="Place.jsp?edit=<%=rs.getString("place_id")%>&name=<%=rs.getString("place_name")%>&id=<%=rs.getString("district_id")%>">Edit</a>
+                                                </td> 
+                                            </tr>
+                                            <%                      }
+
+
+                                            %>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
     </body>
+    <%@include file="Footer.jsp" %>
 </html>

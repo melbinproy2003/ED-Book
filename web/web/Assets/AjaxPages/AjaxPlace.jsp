@@ -1,13 +1,15 @@
-<%@page  import="java.sql.ResultSet" %>
 <jsp:useBean class="DB.ConnectionClass" id="con"></jsp:useBean>
-<option value="">--select--</option>
-<%
-    String sel="select * from tbl_place where district_id='"+request.getParameter("did")+"'";
-    ResultSet rs=con.selectCommand(sel);
-    while(rs.next())
-    {
-        %>
-        <option value="<%=rs.getString("place_id")%>"><%=rs.getString("place_name")%></option>
-        <%
-    }
-%>
+<%@page import="java.sql.ResultSet"%>
+<option value="">Select</option>
+                                <%
+                                    String disQry = "select * from tbl_place where district_id='"+request.getParameter("did")+"'";
+                                    ResultSet  rs1 = con.selectCommand(disQry);
+                                    while(rs1.next())
+                                    {
+                                        %>
+                                        <option value="<%=rs1.getString("place_id")%>"><%=rs1.getString("place_name")%></option>
+                                        
+                                        <%
+                                    }
+                                
+                                %>

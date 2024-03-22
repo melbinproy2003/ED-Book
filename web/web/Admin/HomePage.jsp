@@ -11,14 +11,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home Page</title>
+        <link rel="icon" type="image/png" href="../Assets/friendskit/assets/img/favicon.png" />
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700,800,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto-brands.min.css" rel="stylesheet">
+        <!-- Core CSS -->
+        <link rel="stylesheet" href="../Assets/friendskit/assets/css/app.css">
+        <link rel="stylesheet" href="../Assets/friendskit/assets/css/core.css">
         <%@include file="SessionValidator.jsp" %>
         <%@include file="Header.jsp" %>
     </head>
 
-    <body>
+    <body onload="loadPage()">
         <section class="main_content dashboard_part">
             <!-- menu  -->
-           
+
             <!--/ menu  -->
             <div class="main_content_iner ">
                 <div class="container-fluid p-0">
@@ -29,74 +37,69 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="quick_activity_wrap">
-                                                <div class="single_quick_activity d-flex">
+                                                <div onClick="window.location.href = 'CollegeList.jsp'" class="single_quick_activity d-flex">
                                                     <div class="icon">
                                                         <img src="../Assets/admin/img/icon/College.png" alt="">
                                                     </div>
                                                     <div class="count_content">
                                                         <h3><span class="counter">
-                                                            <%
-                                                            String csel = "select count(*) as c from tbl_college where college_status='1'";
-                                                            ResultSet cc = con.selectCommand(csel);
-                                                            if(cc.next())
-                                                            {
-                                                                out.println(cc.getString("c"));
-                                                            }
-                                                            %>
+                                                                <%                                                                String csel = "select count(*) as c from tbl_college where college_status='1'";
+                                                                    ResultSet cc = con.selectCommand(csel);
+                                                                    if (cc.next()) {
+                                                                        out.println(cc.getString("c"));
+                                                                    }
+                                                                %>
                                                             </span> </h3>
                                                         <p>Colleges</p>
                                                     </div>
                                                 </div>
-                                                <div class="single_quick_activity d-flex">
+                                                <div onClick="window.location.href = 'DepartmentList.jsp'" class="single_quick_activity d-flex">
                                                     <div class="icon">
                                                         <img src="../Assets/admin/img/icon/Department.png" alt="">
                                                     </div>
                                                     <div class="count_content">
                                                         <h3><span class="counter">
-                                                            <%
-                                                            String dsel = "select count(*) as c from tbl_department";
-                                                            ResultSet dc = con.selectCommand(dsel);
-                                                            if(dc.next())
-                                                            {
-                                                                out.println(dc.getString("c"));
-                                                            }
-                                                            %>
+                                                                <%
+                                                                    String dsel = "select count(*) as c from tbl_department";
+                                                                    ResultSet dc = con.selectCommand(dsel);
+                                                                    if (dc.next()) {
+                                                                        out.println(dc.getString("c"));
+                                                                    }
+                                                                %>
                                                             </span> </h3>
                                                         <p>Departments</p>
                                                     </div>
                                                 </div>
-                                                <div class="single_quick_activity d-flex">
+                                                <div onClick="window.location.href = 'TeacherList.jsp'" class="single_quick_activity d-flex">
                                                     <div class="icon">
                                                         <img src="../Assets/admin/img/icon/professor.png" alt="">
                                                     </div>
                                                     <div class="count_content">
                                                         <h3><span class="counter">
-                                                            <%
-                                                            String tsel = "select count(*) as c from tbl_teacher";
-                                                            ResultSet tc = con.selectCommand(tsel);
-                                                            if(tc.next())
-                                                            {
-                                                                out.println(tc.getString("c"));
-                                                            }
-                                                            %>
+                                                                <%
+                                                                    String tsel = "select count(*) as c from tbl_teacher";
+                                                                    ResultSet tc = con.selectCommand(tsel);
+                                                                    if (tc.next()) {
+                                                                        out.println(tc.getString("c"));
+                                                                    }
+                                                                %>
                                                             </span> </h3>
                                                         <p>Teachers</p>
                                                     </div>
                                                 </div>
-                                                <div class="single_quick_activity d-flex">
+                                                <div onClick="window.location.href = 'StudentList.jsp'" class="single_quick_activity d-flex">
                                                     <div class="icon">
                                                         <img src="../Assets/admin/img/icon/Student.png" alt="">
                                                     </div>
                                                     <div class="count_content">
                                                         <h3><span class="counter"> 
                                                                 <%
-                                                            String ssel = "select count(*) as c from tbl_student";
-                                                            ResultSet sc = con.selectCommand(ssel);
-                                                            if(sc.next())
-                                                            {
-                                                                out.println(sc.getString("c"));
-                                                            }
-                                                            %>
+                                                                    String ssel = "select count(*) as c from tbl_student";
+                                                                    ResultSet sc = con.selectCommand(ssel);
+                                                                    if (sc.next()) {
+                                                                        out.println(sc.getString("c"));
+                                                                    }
+                                                                %>
                                                             </span> </h3>
                                                         <p>Students</p>
                                                     </div>
@@ -107,162 +110,88 @@
                                 </div>
                             </div>
                         </div>
+                        <!--view profile-->
+                        <!-- Feed page main wrapper -->
+                        <!--                <div id="activity-feed" class="view-wrap true-dom is-hidden">
+                                            <div class="columns">-->
 
-                        <div class="col-xl-12">
-                            <div class="white_box card_height_100">
-                                <div class="box_header border_bottom_1px  ">
-                                    <div class="main-title">
-                                        <h3 class="mb_25">Colleges</h3>
-                                    </div>
-                                </div>
-                                <div class="staf_list_wrapper sraf_active owl-carousel">
-                                    
-                                    
-                                    <%
-                                    String cQry = "select * from tbl_college c inner join tbl_place p on p.place_id=c.place_id ORDER BY RAND()";
-                                    ResultSet crs = con.selectCommand(cQry);
-                                    while(crs.next())
-                                    {
-                                    
-                                    %>
-                                    
-                                    
-                                    <!-- single carousel  -->
-                                    <div class="single_staf">
-                                        <div class="staf_thumb">
-                                            <img src="<%=crs.getString("college_photo")%>" alt="">
-                                        </div>
-                                        <h4><%=crs.getString("college_name")%></h4>
-                                        <p><%=crs.getString("place_name")%></p>
-                                    </div>
-                                    
-                                    
-                                    
-                                   <%
-                                   
-                                    }
-                                   %>
-                                </div>
+                        <!-- Middle column -->
+                        <div class="column is-8">
+
+                            <!-- Publishing Area -->
+                            <!-- /partials/pages/feed/compose-card.html -->
+
+                            <!-- POST #1 -->
+                            <div id="post-load">
+
                             </div>
-                        </div>
-                                <div class="col-xl-12">
-                            <div class="white_box card_height_100">
-                                <div class="box_header border_bottom_1px  ">
-                                    <div class="main-title">
-                                        <h3 class="mb_25">Departments</h3>
-                                    </div>
-                                </div>
-                                <div class="staf_list_wrapper sraf_active owl-carousel">
-                                    
-                                    
-                                    <%
-                                    String dQry = "select * from tbl_department d inner join tbl_college c on c.college_id=d.college_id inner join tbl_department_type dt on dt.department_type_id=d.department_type_id ORDER BY RAND()";
-                                    ResultSet drs = con.selectCommand(dQry);
-                                    while(drs.next())
-                                    {
-                                    
-                                    %>
-                                    
-                                    
-                                    <!-- single carousel  -->
-                                    <div class="single_staf">
-                                        <div class="staf_thumb">
-                                            <img src="<%=drs.getString("department_photo")%>" alt="">
-                                        </div>
-                                        <h4><%=drs.getString("department_type_name")%></h4>
-                                        <p><%=drs.getString("college_name")%></p>
-                                    </div>
-                                    
-                                    
-                                    
-                                   <%
-                                   
-                                    }
-                                   %>
-                                </div>
+                            <!-- POST #1 -->
+                            <!-- Load more posts -->
+                            <div class=" load-more-wrap has-text-centered">
+                                <a href="#" class="load-more-button" onclick="loadPage()">Load More</a>
                             </div>
+                            <!-- /Load more posts -->
+
                         </div>
-                                <div class="col-xl-12">
-                            <div class="white_box card_height_100">
-                                <div class="box_header border_bottom_1px  ">
-                                    <div class="main-title">
-                                        <h3 class="mb_25">Teachers</h3>
-                                    </div>
-                                </div>
-                                <div class="staf_list_wrapper sraf_active owl-carousel">
-                                    
-                                    
-                                    <%
-                                    String tQry = "select * from tbl_teacher t inner join tbl_department d on d.department_id=t.department_id inner join tbl_college c on c.college_id=d.college_id ORDER BY RAND()";
-                                    ResultSet trs = con.selectCommand(tQry);
-                                    while(trs.next())
-                                    {
-                                    
-                                    %>
-                                    
-                                    
-                                    <!-- single carousel  -->
-                                    <div class="single_staf">
-                                        <div class="staf_thumb">
-                                            <img src="<%=trs.getString("teacher_photo")%>" alt="">
-                                        </div>
-                                        <h4><%=trs.getString("teacher_name")%></h4>
-                                        <p><%=trs.getString("college_name")%></p>
-                                    </div>
-                                    
-                                    
-                                    
-                                   <%
-                                   
-                                    }
-                                   %>
-                                </div>
-                            </div>
-                        </div>
-                                <div class="col-xl-12">
-                            <div class="white_box card_height_100">
-                                <div class="box_header border_bottom_1px  ">
-                                    <div class="main-title">
-                                        <h3 class="mb_25">Students</h3>
-                                    </div>
-                                </div>
-                                <div class="staf_list_wrapper sraf_active owl-carousel">
-                                    
-                                    
-                                    <%
-                                    String sQry = "select * from tbl_student s inner join tbl_course co on co.course_id=s.course_id inner join tbl_department d on d.department_id=s.department_id inner join tbl_college c on d.college_id=c.college_id ORDER BY RAND()";
-                                    ResultSet srs = con.selectCommand(sQry);
-                                    while(srs.next())
-                                    {
-                                    
-                                    %>
-                                    
-                                    
-                                    <!-- single carousel  -->
-                                    <div class="single_staf">
-                                        <div class="staf_thumb">
-                                            <img src="<%=srs.getString("student_photo")%>" alt="">
-                                        </div>
-                                        <h4><%=srs.getString("student_name")%></h4>
-                                        <p><%=srs.getString("college_name")%></p>
-                                        <p><%=srs.getString("course_name")%></p>
-                                    </div>
-                                    
-                                    
-                                    
-                                   <%
-                                   
-                                    }
-                                   %>
-                                </div>
-                            </div>
-                        </div>
+                        <!--                    </div>
+                                        </div>-->
+
                     </div>
                 </div>
             </div>
-
-
         </section>
+
+        <script src="../Assets/JQuery/jQuery.js"></script>
+        <script>
+                                    function deletePost(id)
+                                    {
+
+
+                                        $.ajax({url: "../Assets/AjaxPages/AjaxDeletePost.jsp?id=" + id,
+                                            success: function() {
+                                                loadPage();
+                                            }});
+
+                                    }
+                                    function loadPage()
+                                    {
+                                        $("#post-load").load('../Assets/AjaxPages/AjaxUniversityPostLoad.jsp');
+                                    }
+        </script>
+
+        <!-- Concatenated js plugins and jQuery -->
+        <script src="../Assets/friendskit/assets/js/app.js"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="../Assets/friendskit/assets/data/tipuedrop_content.js"></script>
+
+        <!-- Core js -->
+        <script src="../Assets/friendskit/assets/js/global.js"></script>
+
+        <!-- Navigation options js -->
+        <script src="../Assets/friendskit/assets/js/navbar-v1.js"></script>
+        <script src="../Assets/friendskit/assets/js/navbar-v2.js"></script>
+        <script src="../Assets/friendskit/assets/js/navbar-mobile.js"></script>
+        <script src="../Assets/friendskit/assets/js/navbar-options.js"></script>
+        <script src="../Assets/friendskit/assets/js/sidebar-v1.js"></script>
+
+        <!-- Core instance js -->
+        <script src="../Assets/friendskit/assets/js/main.js"></script>
+        <script src="../Assets/friendskit/assets/js/chat.js"></script>
+        <script src="../Assets/friendskit/assets/js/touch.js"></script>
+        <script src="../Assets/friendskit/assets/js/tour.js"></script>
+        <!-- Components js -->
+        <script src="../Assets/friendskit/assets/js/explorer.js"></script>
+        <script src="../Assets/friendskit/assets/js/widgets.js"></script>
+        <script src="../Assets/friendskit/assets/js/modal-uploader.js"></script>
+        <script src="../Assets/friendskit/assets/js/popovers-users.js"></script>
+        <script src="../Assets/friendskit/assets/js/popovers-pages.js"></script>
+        <script src="../Assets/friendskit/assets/js/lightbox.js"></script>
+
+        <script src="../Assets/friendskit/assets/js/feed.js"></script>
+
+        <script src="../Assets/friendskit/assets/js/webcam.js"></script>
+        <script src="../Assets/friendskit/assets/js/compose.js"></script>
+        <script src="../Assets/friendskit/assets/js/autocompletes.js"></script>
     </body>
     <%@include file="Footer.jsp" %>
 </html>

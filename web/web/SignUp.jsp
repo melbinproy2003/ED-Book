@@ -26,11 +26,13 @@
     </head>
     <%        if (request.getParameter("btn_save") != null) {
 
-            String insQry = "insert into tbl_college(college_name,college_contact,college_email,college_address,college_photo,college_password,place_id)"
+            String insQry = "insert into tbl_college(college_name,college_contact,college_email,college_address,college_photo,college_password,place_id,university_id)"
                     + "values('" + request.getParameter("txt_name") + "','" + request.getParameter("txt_number") + "','" + request.getParameter("txt_email") + "',"
-                    + "'" + request.getParameter("txt_address") + "','" + request.getParameter("converted_photo") + "','" + request.getParameter("txt_password") + "','" + request.getParameter("sel_place") + "')";
-            con.executeCommand(insQry);
-            response.sendRedirect("index.jsp");
+                    + "'" + request.getParameter("txt_address") + "','" + request.getParameter("converted_photo") + "','" + request.getParameter("txt_password") + "','" + request.getParameter("sel_place") + "','"+ request.getParameter("sel_university")+"')";
+            System.out.println(insQry);
+            if (con.executeCommand(insQry)) {
+                response.sendRedirect("index.jsp");
+            }
 
         }
 
@@ -172,6 +174,23 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="field">
+                                    <label>University</label>
+                                    <div class="control">
+                                        <select required="" class="input" id="sel_university" style="border: none;background: transparent" name="sel_university">
+                                            <option value="">Select</option>
+                                            <%  String unQry = "select * from tbl_university";
+                                                ResultSet unrs = con.selectCommand(unQry);
+                                                while (unrs.next()) {
+                                            %>
+                                            <option value="<%=unrs.getString("university_id")%>"><%=unrs.getString("university_name")%></option>
+                                            <%
+                                                }
+
+                                            %>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="buttons">
@@ -215,8 +234,8 @@
                                     <label>Password</label>
                                     <div class="control">
                                         <input required="" type="password" placeholder="Choose a password" class="input" id="txt_password" name="txt_password">
-<!--                                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                               title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" -->
+                                        <!--                                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                                                       title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" -->
 
                                     </div>
                                 </div>
@@ -272,7 +291,7 @@
 
                                                 $.ajax({url: "Assets/AjaxPages/AjaxPlace.jsp?did=" + did,
                                                     success: function(result) {
-                                                       
+
                                                         $("#sel_place").html(result);
                                                     }});
                                             }

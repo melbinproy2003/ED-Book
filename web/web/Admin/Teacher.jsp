@@ -28,9 +28,9 @@
             <thead>
                 <tr>
                     <th>Sl.no</th>
+                    <th>Name</th>
                     <th>College</th>
                     <th>Department</th>
-                    <th>Name</th>
                     <th>Contact</th>
                     <th>Email</th>
                     <th>District</th>
@@ -39,7 +39,7 @@
             </thead>
             <tbody>
                 <%                   int i = 0;
-                    String selQry = "select * from tbl_teacher t inner join tbl_department d on d.department_id=t.department_id inner join tbl_college c on c.college_id=d.college_id inner join tbl_place p on p.place_id=t.place_id inner join tbl_district dis on dis.district_id=p.district_id";
+                    String selQry = "select * from tbl_teacher t inner join tbl_department d on d.department_id=t.department_id inner join tbl_department_type dt on d.department_type_id=dt.department_type_id inner join tbl_college c on c.college_id=d.college_id inner join tbl_place p on p.place_id=t.place_id inner join tbl_district dis on dis.district_id=p.district_id";
                     ResultSet rs = con.selectCommand(selQry);
 
                     while (rs.next()) {
@@ -47,9 +47,9 @@
                 %>
                 <tr>
                     <td><%=i%></td>
-                    <td><%=rs.getString("college_name")%></td>
-                    <td><%=rs.getString("department_name")%></td>
                     <td><%=rs.getString("teacher_name")%></td>
+                    <td><%=rs.getString("college_name")%></td>
+                    <td><%=rs.getString("department_type_name")%></td>
                     <td><%=rs.getString("teacher_contact")%></td>
                     <td><%=rs.getString("teacher_email")%></td>
                     <td><%=rs.getString("district_name")%></td>

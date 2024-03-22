@@ -28,9 +28,9 @@
             <thead>
                 <tr>
                     <th>Sl.no</th>
+                    <th>Name</th>
                     <th>College</th>
                     <th>Course</th>
-                    <th>Name</th>
                     <th>Contact</th>
                     <th>Email</th>
                     <th>District</th>
@@ -48,9 +48,9 @@
                                             %>
                                             <tr>
                                                 <td><%=i%></td>
+                                                <td><%=rs.getString("student_name")%></td>
                                                 <td><%=rs.getString("college_name")%></td>
                                                 <td><%=rs.getString("course_name")%></td>
-                                                <td><%=rs.getString("student_name")%></td>
                                                 <td><%=rs.getString("student_contact")%></td>
                                                 <td><%=rs.getString("student_email")%></td>
                                                 <td><%=rs.getString("district_name")%></td>

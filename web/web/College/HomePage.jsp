@@ -71,6 +71,18 @@
                         </a>
                     </li>
                     <li>
+                        <a href="Batch.jsp" >
+                            <i data-feather="alert-triangle"></i>
+                            <span>New Batch</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Updatesemester.jsp" >
+                            <i data-feather="alert-triangle"></i>
+                            <span>Update Sem</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="../logout.jsp" >
                             <i data-feather="log-out"></i>
                             <span>Logout</span>
@@ -746,30 +758,43 @@
                                     %>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-heading is-bordered">
-                                    <h4>Teachers</h4>
+                                <div class="card">
+                                    <div class="card-heading is-bordered">
+                                    <h4>Staffs</h4>
                                     <div class="dropdown is-spaced is-neutral is-right dropdown-trigger">
                                         <div>
                                             <div class="button">
-                                                <a href="TeacherList.jsp" >  <i data-feather="more-vertical"></i></a>
+                                                <a href="StaffList.jsp" >  <i data-feather="more-vertical"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body no-padding">
-
-                                    <%                                        String selQry1 = "select * from tbl_teacher t inner join tbl_department d on d.department_id=t.department_id where college_id='" + session.getAttribute("cid") + "'";
-                                        ResultSet rs1 = con.selectCommand(selQry1);
-                                        while (rs1.next()) {
+                            <div class="card-body no-padding">
+                                    <!-- Story block -->
+                                    <div class="story-block">
+                                        <a href="NewStaff.jsp" class="add-story">
+                                            <i data-feather="plus"></i>
+                                        </a>
+                                        <div class="story-meta">
+                                            <span>Add a new Staff</span>
+                                            <span>Share Duty's with them</span>
+                                        </div>
+                                    </div>
+                                    <!-- Story block -->
+                                    <%
+                                        String selQryt = "select * from tbl_teacher t inner join tbl_department d on t.department_id=d.department_id inner join tbl_department_type dt on d.department_type_id=dt.department_type_id where college_id='"+session.getAttribute("cid")+"'";
+                                        ResultSet rst = con.selectCommand(selQryt);
+                                        while (rst.next()) {
                                     %>
 
                                     <div class="story-block">
                                         <div class="img-wrapper">
-                                            <img src="<%=rs1.getString("teacher_photo")%>" data-user-popover="1" alt="">
+                                            <img src="<%=rst.getString("teacher_photo")%>" data-user-popover="1" alt="">
                                         </div>
                                         <div class="story-meta">
-                                            <span><%=rs1.getString("teacher_name")%></span>
+                                            <span><%=rst.getString("teacher_name")%></span>
+                                            <span><%=rst.getString("teacher_contact")%></span>
+                                            <span><%=rst.getString("department_type_name")%></span>
                                         </div>
                                     </div>
 
@@ -780,7 +805,7 @@
 
                                     %>
                                 </div>
-                            </div>
+                                </div>
                             <div class="card">
                                 <div class="card-heading is-bordered">
                                     <h4>Students</h4>

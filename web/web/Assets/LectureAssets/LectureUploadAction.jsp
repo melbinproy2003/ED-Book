@@ -95,7 +95,7 @@
                 }
 
 
-                    String ins = "insert into tbl_lectures (teacher_id,subject_id,lecture_content,lecture_date,lecture_file) "
+                    String ins = "insert into tbl_lecture (teacher_id,subject_id,lecture_content,lecture_date,lecture_file) "
                             + "values('"+session.getAttribute("tid")+"','"+value[2]+"','"+value[3]+"',curdate(),'"+fn+"')";
 
                     System.out.println(ins);

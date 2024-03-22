@@ -18,7 +18,6 @@
     <%        if (request.getParameter("btn_update") != null) {
 
             String upQry = "update tbl_department set "
-                    + "department_name='" + request.getParameter("txt_name") + "', "
                     + "department_contact='" + request.getParameter("txt_number") + "',"
                     + "department_photo='" + request.getParameter("txt_pic") + "',"
                     + "department_email='" + request.getParameter("txt_email") + "',"
@@ -43,7 +42,7 @@
             <h1>Edit Profile</h1>
             <form method="post">
                 <table border="1">
-                    <%                String selQry = "select * from tbl_department where department_id='" + session.getAttribute("did") + "'";
+                    <%                String selQry = "select * from tbl_department d inner join tbl_department_type dt on d.department_type_id=dt.department_type_id where department_id='" + session.getAttribute("did") + "'";
                         ResultSet rs = con.selectCommand(selQry);
                         if (rs.next()) {
                     %>
@@ -55,7 +54,7 @@
                     </tr>
                     <tr>
                         <td>Name</td>
-                        <td><input type="text" name="txt_name" value="<%=rs.getString("department_name")%>"></td>
+                        <td><%=rs.getString("department_type_name")%></td>
                     </tr>
                     <tr>
                         <td>Contact</td>

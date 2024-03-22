@@ -19,9 +19,8 @@
       if(request.getParameter("btn_save")!=null)
       {
             
-          String insQry = "insert into tbl_department(department_type_id,department_name,department_email,department_contact,department_landmark,department_photo,department_password,college_id)"
-                  + "values('"+request.getParameter("sel_type")+"',"
-                  + "'"+request.getParameter("txt_name")+"','"+request.getParameter("txt_email")+"','"+request.getParameter("txt_number")+"',"
+          String insQry = "insert into tbl_department(department_type_id,department_email,department_contact,department_landmark,department_photo,department_password,college_id)"
+                  + "values('"+request.getParameter("sel_type")+"','"+request.getParameter("txt_email")+"','"+request.getParameter("txt_number")+"',"
                   + "'"+request.getParameter("txt_landmark")+"','"+request.getParameter("converted_photo")+"','"+request.getParameter("txt_password")+"','"+session.getAttribute("cid")+"')";
          System.out.println("query="+insQry);
           if(con.executeCommand(insQry))
@@ -44,23 +43,6 @@
                 <table border="1">
                      <tr>
                         <td>Name</td>
-                        <td><input type="text" required="" name="txt_name"></td>
-                    </tr>
-                   
-                    <tr>
-                        <td>Contact</td>
-                        <td><input type="text" required="" name="txt_number"></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td><input type="email" required="" name="txt_email"></td>
-                    </tr>
-                    <tr>
-                        <td>Landmark</td>
-                        <td><textarea name="txt_landmark" required=""></textarea></td>
-                    </tr>
-                    <tr>
-                        <td>Type</td>
                         <td>
                             <select name="sel_type" required="">
                                 <option value="">-------Select-------</option>
@@ -76,6 +58,19 @@
                                 %>
                             </select>
                         </td>
+                    </tr>
+                   
+                    <tr>
+                        <td>Contact</td>
+                        <td><input type="text" required="" name="txt_number"></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="email" required="" name="txt_email"></td>
+                    </tr>
+                    <tr>
+                        <td>Landmark</td>
+                        <td><textarea name="txt_landmark" required=""></textarea></td>
                     </tr>
                     <tr>
                         <td>Photo</td>

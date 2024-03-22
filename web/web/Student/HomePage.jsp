@@ -4,8 +4,8 @@
     Author     : Pro-TECH
 --%>
 
-<%@page import="java.sql.ResultSet"%>
 <!DOCTYPE html>
+<%@page import="java.sql.ResultSet"%>
 <jsp:useBean class="DB.ConnectionClass" id="con"></jsp:useBean>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="SessionValidator.jsp" %>
@@ -45,8 +45,13 @@
                 <div class="user-block">
                     <img class="avatar" src="<%=session.getAttribute("sphoto")%>" alt="">
                     <div class="meta">
+                        <%
+                            String sel = "select * from tbl_student s inner join tbl_course c on s.course_id=c.course_id inner join tbl_semester sem on s.semester_id=sem.semester_id where student_id='" + session.getAttribute("sid") + "'";
+                            ResultSet resp = con.selectCommand(sel);
+                            resp.next();
+                        %>
                         <span style="margin-left: 7px"><%=session.getAttribute("sname")%></span>
-                        <span style="margin-left: 10px">Student</span>
+                        <span style="margin-left: 10px">S<%=resp.getString("semester_name")%> <%=resp.getString("course_name")%> Student</span>
                     </div>
                 </div>
             </div>
@@ -64,7 +69,7 @@
                             <span>Lecture</span>
                         </a>
                     </li>
-                     <li>
+                    <li>
                         <a href="ViewTeachers.jsp" class="is-active">
                             <i data-feather="box"></i>
                             <span>My Teachers</span>
@@ -688,8 +693,8 @@
                                     <!-- Story block -->
                                     <%                                        String selQry1 = "select * from tbl_student s inner join tbl_course c on c.course_id = s.course_id where department_id='" + session.getAttribute("sdid") + "'";
                                         System.out.println(selQry1);
-                                    ResultSet rs1 = con.selectCommand(selQry1);
-                                        
+                                        ResultSet rs1 = con.selectCommand(selQry1);
+
                                         while (rs1.next()) {
                                     %>
 
@@ -809,13 +814,13 @@
                                         $("#post-load").load('../Assets/AjaxPages/AjaxStudentPostLoad.jsp');
                                     }
 
-                                      function fclick(id)
+                                    function fclick(id)
                                     {
-                                        var div = document.querySelector('#cid-'+id);
+                                        var div = document.querySelector('#cid-' + id);
                                         div.classList.toggle('is-hidden');
 
                                     }
-                                   function onLike(img)
+                                    function onLike(img)
                                     {
                                         var string = img.src;
                                         var name = string.substring(string.length - 11);

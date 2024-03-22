@@ -15,25 +15,18 @@
         <%@include file="SessionValidator.jsp" %>
         <%@include file="Header.jsp" %>
     </head>
+    <%        if (request.getParameter("id") != null) {
+            String del = "delete from tbl_lecture where lecture_id='" + request.getParameter("id") + "'";
+            if (con.executeCommand(del)) {
+    %> 
+    <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = 'Lecture.jsp'
+        }, 40);//40millisecend it go to next page
+    </script>
     <%
-    
-    if(request.getParameter("id")!=null)
-    {
-        String del = "delete from tbl_lectures where lecture_id='"+request.getParameter("id")+"'";
-        if(con.executeCommand(del))
-        {
-            %> 
-        <script type="text/javascript">
-            setTimeout(function() {
-                window.location.href = 'Lecture.jsp'
-            }, 40);//40millisecend it go to next page
-        </script>
-        <%
+            }
         }
-        
-    }
-    
-    
     %>
     <body>
         <div id="tab" align="center">
@@ -43,38 +36,26 @@
                     <tr>
                         <td>Course</td>
                         <td>
-                            <select name="sel_cou" id="sel_cou">
-                                <option>Select</option>
-                                <%                            String sel1 = "select * from tbl_course where department_type_id='" + session.getAttribute("tdtid") + "'";
-                                    ResultSet rs1 = con.selectCommand(sel1);
-                                    while (rs1.next()) {
+                            <select name="course" id="sel_course" onchange="getSemester(this.value)">
+                                <option value="">--select--</option>
+                                <%
+                                    String selectc = "select * from tbl_course where department_type_id='" + session.getAttribute("tdtid") + "'";
+                                    ResultSet selcourse = con.selectCommand(selectc);
+                                    while (selcourse.next()) {
                                 %>
-
-                                <option value="<%=rs1.getString("course_id")%>"><%=rs1.getString("course_name")%></option>
-
+                                <option value="<%=selcourse.getString("course_id")%>"><%=selcourse.getString("course_name")%></option>
                                 <%
                                     }
-
                                 %>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td>Semester</td>
+                        <td>Semester:</td>
                         <td>
-                            <select name="sel_sem" onchange="getSubject(this.value)">
-                                <option>Select</option>
-                                <%                            String sel = "select * from tbl_semester";
-                                    ResultSet rs = con.selectCommand(sel);
-                                    while (rs.next()) {
-                                %>
+                            <select name="semester" id="sel_semester" onchange="getSubject(this.value)">
+                                <option value=" ">--select--</option>
 
-                                <option value="<%=rs.getString("semester_id")%>"><%=rs.getString("semester_name")%></option>
-
-                                <%
-                                    }
-
-                                %>
                             </select>
                         </td>
                     </tr>
@@ -113,7 +94,7 @@
                         <th>action</th>
                     </tr>
                     <%                                    int i = 0;
-                        String selQry1 = "select * from tbl_lectures l inner join tbl_subject s on s.subject_id=l.subject_id where teacher_id = '" + session.getAttribute("tid") + "'";
+                        String selQry1 = "select * from tbl_lecture l inner join tbl_subject s on s.subject_id=l.subject_id where teacher_id = '" + session.getAttribute("tid") + "'";
                         ResultSet rsz = con.selectCommand(selQry1);
                         while (rsz.next()) {
                             i++;
@@ -132,9 +113,9 @@
                         <td><%
 
                             if (format.equals("png") || format.equals("jpg") || format.equals("jpeg")) {
-                               out.println("<a href='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' download>"
-                                       + "<img src='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' width='120' height='120' alt='" + rsz.getString("lecture_file") + "'>"
-                                       + "</a>");
+                                out.println("<a href='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' download>"
+                                        + "<img src='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' width='120' height='120' alt='" + rsz.getString("lecture_file") + "'>"
+                                        + "</a>");
                             } else if (format.equals("pdf") || format.equals("doc") || format.equals("txt")) {
                                 out.println("<a href='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' download>Download This Document</a>");
                             } else if (format.equals("mp3") || format.equals("ogg") || format.equals("m4a")) {
@@ -145,14 +126,14 @@
                                         + " <source src='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' type='audio/m4a'>"
                                         + "Your browser does not support the audio element."
                                         + " </audio>");
-                                
+
                             } else if (format.equals("mp4") || format.equals("mov") || format.equals("avi") || format.equals("mkv")) {
 
                                 out.println("<video width='350' controls>"
                                         + "<source src='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' type='video/mp4'>"
                                         + "<source src='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' type='video/mov'>"
                                         + " <source src='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' type='video/avi'>"
-                                         + " <source src='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' type='video/mkv'>"
+                                        + " <source src='../Assets/LectureAssets/Lectures/" + rsz.getString("lecture_file") + "' type='video/mkv'>"
                                         + "Your browser does not support the video tag."
                                         + " </audio>");
                             }
@@ -161,7 +142,7 @@
                             %></td>
                         <td> 
                             <a href="Lecture.jsp?id=<%=rsz.getString("lecture_id")%>" style="padding-left: 0;">Delete</a>
-                            
+
                         </td>
                     </tr>
                     <%                        }
@@ -172,10 +153,22 @@
         <%@include file="Footer.jsp" %>
         <script src="../Assets/JQuery/jQuery.js"></script>
         <script>
+
+                                function getSemester(sid)
+                                {
+                                    $.ajax({
+                                        url: "../Assets/AjaxPages/AjaxSemCount.jsp?sid=" + sid,
+                                        success: function(html) {
+                                            $("#sel_semester").html(html);
+
+                                        }
+                                    });
+                                }
+
                                 function getSubject(sid)
                                 {
 
-                                    var id = document.getElementById("sel_cou").value;
+                                    var id = document.getElementById("sel_course").value;
                                     $.ajax({url: "../Assets/AjaxPages/AjaxLecture.jsp?sid=" + sid + "&id=" + id,
                                         success: function(result) {
                                             $("#sel_sub").html(result);

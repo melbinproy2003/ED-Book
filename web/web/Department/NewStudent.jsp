@@ -34,10 +34,11 @@
     %>
     <%          if (request.getParameter("btn_save") != null) {
 
-            String insQry = "insert into tbl_student(student_name,student_dob,student_contact,student_email,student_gender,student_address,student_photo,student_password,place_id,semester_id,department_id,course_id)"
+            String insQry = "insert into tbl_student(student_name,student_dob,student_contact,student_email,student_gender,student_address,student_photo,student_password,place_id,batch_id,department_id,course_id)"
                     + "values('" + request.getParameter("txt_name") + "','" + request.getParameter("date_dob") + "','" + request.getParameter("txt_contact") + "','" + request.getParameter("txt_email") + "',"
                     + "'" + request.getParameter("rdo_gender") + "','" + request.getParameter("txt_address") + "','" + request.getParameter("converted_photo") + "','" + request.getParameter("txt_password") + "',"
-                    + "'" + request.getParameter("sel_place") + "','" + request.getParameter("sel_semester") + "','" + session.getAttribute("did") + "','" + request.getParameter("sel_course") + "')";
+                    + "'" + request.getParameter("sel_place") + "','" + request.getParameter("sel_batch") + "','" + session.getAttribute("did") + "','" + request.getParameter("sel_course") + "')";
+//            System.out.println(insQry);
             if(con.executeCommand(insQry))
           {
               %> 
@@ -117,7 +118,7 @@
                             <select name="sel_course" >
                                 <option value="">-------Select-------</option>
                                 <%                                    String coQry = "select * from tbl_course where department_type_id='" + session.getAttribute("dtype") + "'";
-                                    System.out.println(coQry);
+//                                    System.out.println(coQry);
                                     ResultSet rsc = con.selectCommand(coQry);
                                     while (rsc.next()) {
                                 %>
@@ -130,15 +131,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Semester</td>
+                        <td>Batch</td>
                         <td>
-                            <select name="sel_semester" >
+                            <select name="sel_batch" >
                                 <option value="">-------Select-------</option>
-                                <%                                    String semQry = "select * from tbl_semester";
+                                <%                                    String semQry = "select * from tbl_batch where college_id='"+session.getAttribute("dcid")+"'";
                                     ResultSet rss = con.selectCommand(semQry);
                                     while (rss.next()) {
                                 %>
-                                <option value="<%=rss.getString("semester_id")%>"><%=rss.getString("semester_name")%></option>
+                                <option value="<%=rss.getString("batch_id")%>"><%=rss.getString("batch_name")%></option>
                                 <%
                                     }
 

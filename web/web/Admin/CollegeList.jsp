@@ -1,6 +1,6 @@
 <%-- 
-    Document   : TeacherList
-    Created on : May 7, 2021, 10:40:26 PM
+    Document   : CollegeList
+    Created on : May 5, 2021, 9:58:58 PM
     Author     : Pro-TECH
 --%>
 <%@page import="java.sql.ResultSet"%>
@@ -10,9 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teacher List</title>
+        <title>College List</title>
         <%@include file="SessionValidator.jsp" %>
         <%@include file="Header.jsp" %>
+        <%@include file="Footer.jsp" %>
     </head>
     <body>
         <section class="main_content dashboard_part">
@@ -23,7 +24,7 @@
                         <div class="col-12">
                             <div class="QA_section">
                                 <div class="QA_table mb_30">
-                                    <iframe style="border: none; border-radius: 15px; width: 100%; height: 653px ;" src = "Teacher.jsp" ></iframe>
+                                    <iframe style="border: none; border-radius: 15px; width: 100%; height: 653px ;" src = "College.jsp" ></iframe>
                                 </div>
                             </div>
                         </div>
@@ -33,5 +34,4 @@
 
         </section>
     </body>
-    <%@include file="Footer.jsp" %>
 </html>

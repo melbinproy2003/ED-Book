@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Teacher
-    Created on : May 12, 2021, 10:58:27 PM
+    Document   : College
+    Created on : May 12, 2021, 8:45:58 PM
     Author     : Pro-TECH
 --%>
 <%@page import="java.sql.ResultSet"%>
@@ -10,7 +10,7 @@
 <html lang="en" >
     <head>
         <meta charset="UTF-8">
-        <title>Teacher List</title>
+        <title>College List</title>
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
         <link rel='stylesheet' href='https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css'>
         <link rel='stylesheet' href='https://cdn.datatables.net/buttons/1.2.2/css/buttons.bootstrap.min.css'>
@@ -22,30 +22,59 @@
         </style>
         <%@include file="SessionValidator.jsp" %>
     </head>
+    <%        
+        if (request.getParameter("aid") != null) {
+
+                String upQry = "update tbl_college set college_status='1' where college_id='" + request.getParameter("aid") + "'";
+                if (con.executeCommand(upQry)) {
+                    out.println("<script>alert('Accepted')</script>");
+                }
+         
+        }
+        if (request.getParameter("rid") != null) {
+           
+                String upQry = "update tbl_college set college_status='2' where college_id='" + request.getParameter("rid") + "'";
+                if (con.executeCommand(upQry)) {
+                    out.println("<script>alert('Rejected')</script>");
+                }
+            
+
+        }
+
+
+    %>
     <body>
-        <h1 align="center" id="heading">Teachers Data</h1>
+        <h1 align="center" id="heading">College Data</h1>
         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Department</th>
+                    <th>Sl.no</th>
                     <th>Name</th>
+                    <th>District</th>
+                    <th>Place</th>
                     <th>Contact</th>
                     <th>Email</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <%                   int i = 0;
-                    String selQry = "select * from tbl_teacher t inner join tbl_department d on d.department_id=t.department_id inner join tbl_college c on c.college_id=d.college_id inner join tbl_place p on p.place_id=t.place_id inner join tbl_district dis on dis.district_id=p.district_id where d.college_id='"+session.getAttribute("cid")+"'";
+                <%                    int i = 0;
+                    String selQry = "select * from tbl_college c inner join tbl_place p on p.place_id=c.place_id inner join tbl_district d on d.district_id=p.district_id where college_status='1'";
                     ResultSet rs = con.selectCommand(selQry);
 
                     while (rs.next()) {
                         i++;
                 %>
                 <tr>
-                    <td><%=rs.getString("department_name")%></td>
-                    <td><%=rs.getString("teacher_name")%></td>
-                    <td><%=rs.getString("teacher_contact")%></td>
-                    <td><%=rs.getString("teacher_email")%></td>
+                    <td><%=i%></td>
+                    <td><%=rs.getString("college_name")%></td>
+                    <td><%=rs.getString("district_name")%></td>
+                    <td><%=rs.getString("place_name")%></td>
+                    <td><%=rs.getString("college_contact")%></td>
+                    <td><%=rs.getString("college_email")%></td>
+                    <td align="center">
+                        <a href="NewCollege.jsp?rid=<%=rs.getString("college_id")%>&mailid=<%=rs.getString("college_email")%>&name=<%=rs.getString("college_name")%>"><img src="../Assets/remove.png"  width="25" height="25"></a>
+                    </td>
                 </tr>
                 <%
                     }
@@ -94,7 +123,7 @@
                                     extend: 'pdfHtml5',
                                     filename: 'pdf',
                                     orientation: 'portrait', //portrait or landscape
-                                    pageSize: 'A4', //A3 , A4 , A5 , A6 , legal , letter
+                                    pageSize: 'A6', //A3 , A4 , A5 , A6 , legal , letter
                                     exportOptions: {
                                         columns: ':visible',
                                         search: 'applied',
@@ -103,9 +132,9 @@
                                     customize: function(doc) {
                                         //Remove the title created by datatTables
                                         doc.content.splice(0, 1);
-                                        var heading = document.getElementById("heading").innerHTML;
                                         //Create a date string that we use in the footer. Format is dd-mm-yyyy
                                         var now = new Date();
+                                        var heading = document.getElementById("heading").innerHTML;
                                         var jsDate = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
                                         // Logo converted to base64
                                         // var logo = getBase64FromImageUrl('https://datatables.net/media/images/logo.png');
@@ -172,7 +201,7 @@
                                         });
                                         // Change dataTable layout (Table styling)
                                         // To use predefined layouts uncomment the line below and comment the custom lines below
-                                         //doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly ,lightHorizontalLines
+                                        // doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
                                         var objLayout = {};
                                         objLayout['hLineWidth'] = function(i) {
                                             return .5;

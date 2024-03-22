@@ -35,13 +35,13 @@
             String college = "select * from tbl_college where college_email ='" + email + "' and college_password='" + password + "'";
             ResultSet rsC = con.selectCommand(college);
 
-            String department = "select * from tbl_department d inner join tbl_college c on c.college_id=d.college_id where department_email = '" + email + "' and department_password= '" + password + "'";
+            String department = "select * from tbl_department d inner join tbl_department_type dt on d.department_type_id=dt.department_type_id inner join tbl_college c on c.college_id=d.college_id where department_email = '" + email + "' and department_password= '" + password + "'";
             ResultSet rsD = con.selectCommand(department);
 
             String teacher = "select * from tbl_teacher t inner join tbl_department d on t.department_id=d.department_id inner join tbl_department_type dt on dt.department_type_id=d.department_type_id inner join tbl_college c on c.college_id=d.college_id where teacher_email =  '" + email + "' and teacher_password= '" + password + "'";
             ResultSet rsT = con.selectCommand(teacher);
 
-            String student = "select * from tbl_student s inner join tbl_department d on s.department_id=d.department_id inner join tbl_college c on c.college_id=d.college_id where student_email = '" + email + "' and student_password= '" + password + "'";
+            String student = "select * from tbl_student s inner join tbl_semester sem on s.semester_id=sem.semester_id inner join tbl_department d on s.department_id=d.department_id inner join tbl_department_type dt on d.department_type_id=dt.department_type_id inner join tbl_college c on c.college_id=d.college_id where student_email = '" + email + "' and student_password= '" + password + "'";
             ResultSet rsS = con.selectCommand(student);
 
             if (rsA.next()) {
@@ -78,7 +78,7 @@
     <%        }
     } else if (rsD.next()) {
         session.setAttribute("did", rsD.getString("department_id"));
-        session.setAttribute("dname", rsD.getString("department_name"));
+        session.setAttribute("dname", rsD.getString("department_type_name"));
         session.setAttribute("dphoto", rsD.getString("department_photo"));
         session.setAttribute("dcid", rsD.getString("college_id"));
         session.setAttribute("dcname", rsD.getString("college_name"));
@@ -92,7 +92,7 @@
         session.setAttribute("tcid", rsT.getString("college_id"));
         session.setAttribute("tdid", rsT.getString("department_id"));
         session.setAttribute("tdtid", rsT.getString("department_type_id"));
-        session.setAttribute("tdname", rsT.getString("department_name"));
+        session.setAttribute("tdname", rsT.getString("department_type_name"));
         session.setAttribute("tdphoto", rsT.getString("department_photo"));
         session.setAttribute("tphoto", rsT.getString("teacher_photo"));
         session.setAttribute("temail", rsT.getString("teacher_email"));
@@ -103,7 +103,7 @@
         session.setAttribute("scid", rsS.getString("college_id"));
         session.setAttribute("ssid", rsS.getString("semester_id"));
         session.setAttribute("sdid", rsS.getString("department_id"));
-        session.setAttribute("sdname", rsS.getString("department_name"));
+        session.setAttribute("sdname", rsS.getString("department_type_name"));
         session.setAttribute("sdphoto", rsS.getString("department_photo"));
         session.setAttribute("sphoto", rsS.getString("student_photo"));
         session.setAttribute("semail", rsS.getString("student_email"));
@@ -166,9 +166,9 @@
                                             <label>Password</label>
                                             <div class="control">
                                                 <input type="password" class="input" name="txt_password" placeholder="Enter your password" required="required"/>
-<!--                                                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                                       title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" -->
-                                                       
+                                                <!--                                                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                                                                       title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" -->
+
                                             </div>
                                         </div>
                                         <br><br>

@@ -32,6 +32,7 @@
                 <%                    int i = 0;
                     String selQry = "select * from tbl_subject s inner join tbl_semester sem on sem.semester_id=s.semester_id inner join tbl_course c on c.course_id=s.course_id inner join tbl_teacher_assign ta on ta.subject_id=s.subject_id  inner join tbl_teacher te on te.teacher_id=ta.teacher_id inner join tbl_student st on st.semester_id=sem.semester_id where st.student_id='"+session.getAttribute("sid")+"'";
                     ResultSet rsz = con.selectCommand(selQry);
+                    System.out.println(selQry);
                     while (rsz.next()) {
                         i++;
                 %>

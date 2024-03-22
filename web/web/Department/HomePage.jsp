@@ -816,7 +816,7 @@
                                 </div>
                                 <div class="card-body no-padding">
                                     <!-- Story block -->
-                                    <div class="story-block">
+<!--                                    <div class="story-block">
                                         <a href="NewStaff.jsp" class="add-story">
                                             <i data-feather="plus"></i>
                                         </a>
@@ -824,10 +824,10 @@
                                             <span>Add a new Staff</span>
                                             <span>Share Duty's with them</span>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <!-- Story block -->
                                     <%
-                                        String selQry = "select * from tbl_teacher where department_id='" + session.getAttribute("did") + "'";
+                                        String selQry = "select * from tbl_teacher where department_id='" + session.getAttribute("did") + "' order by teacher_id DESC";
                                         ResultSet rs = con.selectCommand(selQry);
                                         while (rs.next()) {
                                     %>
@@ -873,7 +873,7 @@
                                         </div>
                                     </div>
                                     <!-- Story block -->
-                                    <%                                        String selQry1 = "select * from tbl_student s inner join tbl_course c on c.course_id = s.course_id where department_id='" + session.getAttribute("did") + "'";
+                                    <%                                        String selQry1 = "select * from tbl_student s inner join tbl_course c on c.course_id = s.course_id where department_id='" + session.getAttribute("did") + "' order by student_id DESC";
                                         System.out.println(selQry1);
                                         ResultSet rs1 = con.selectCommand(selQry1);
                                         while (rs1.next()) {

@@ -57,6 +57,13 @@
                     </a>
                    
                 </li>
+                <li class="mm-active">
+                    <a  href="NewPost.jsp"  aria-expanded="false">
+                        <img src="../Assets/admin/img/menu-icon/1.svg" alt="">
+                        <span>Add Post</span>
+                    </a>
+                   
+                </li>
                 <li class="side_menu_title">
                     <span>College Management</span>
                 </li>

@@ -20,7 +20,7 @@
         <h1>Profile</h1>
         <table border="1">
             <%
-                String selQry = "select * from tbl_department where department_id='"+session.getAttribute("did")+"'";
+                String selQry = "select * from tbl_department d inner join tbl_department_type dt on d.department_type_id=dt.department_type_id where department_id='"+session.getAttribute("did")+"'";
                 ResultSet rs = con.selectCommand(selQry);
                 if(rs.next())
                 {
@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>Name</td>
-                <td><%=rs.getString("department_name")%></td>
+                <td><%=rs.getString("department_type_name")%></td>
             </tr>
              <tr>
                 <td>Contact</td>

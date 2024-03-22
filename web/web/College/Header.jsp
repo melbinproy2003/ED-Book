@@ -68,6 +68,18 @@
                         </a>
                     </li>
                     <li>
+                        <a href="Batch.jsp" >
+                            <i data-feather="alert-triangle"></i>
+                            <span>New Batch</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Updatesemester.jsp" >
+                            <i data-feather="alert-triangle"></i>
+                            <span>Update Sem</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="../logout.jsp" >
                             <i data-feather="log-out"></i>
                             <span>Logout</span>

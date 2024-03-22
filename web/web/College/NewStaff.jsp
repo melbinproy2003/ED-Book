@@ -40,7 +40,7 @@
             String insQry = "insert into tbl_teacher(teacher_name,teacher_dob,teacher_contact,teacher_email,teacher_gender,teacher_address,teacher_photo,teacher_password,place_id,department_id,teacher_about)"
                     + "values('"+request.getParameter("txt_name")+"','"+request.getParameter("date_dob")+"','"+request.getParameter("txt_contact")+"','"+request.getParameter("txt_email")+"',"
                     + "'"+request.getParameter("rdo_gender")+"','"+request.getParameter("txt_address")+"','"+request.getParameter("converted_photo")+"','"+request.getParameter("txt_password")+"',"
-                    + "'"+request.getParameter("sel_place")+"','"+session.getAttribute("did")+"','"+request.getParameter("txt_about")+"')";
+                    + "'"+request.getParameter("sel_place")+"','"+request.getParameter("txt_department")+"','"+request.getParameter("txt_about")+"')";
 
              if(con.executeCommand(insQry))
           {
@@ -123,6 +123,24 @@
                         <td>Photo</td>
                         <td><input type="file" required="" id="file_photo">
                             <input type="hidden" id="converted" name="converted_photo"></td>
+                    </tr>
+                    <tr>
+                        <td>Department</td>
+                        <td>
+                            <select name="txt_department">
+                                <option value="">-------Select-------</option>
+                                <%
+                                 String selectd="select * from tbl_department d inner join tbl_department_type dt on d.department_type_id=dt.department_type_id where d.college_id='"+session.getAttribute("cid")+"'";
+//                                 System.out.println(selectd);
+                                 ResultSet rsd=con.selectCommand(selectd);
+                                 while(rsd.next()){
+                                     %>
+                                     <option value="<%=rsd.getString("department_id")%>"><%=rsd.getString("department_type_name")%></option>
+                                <%
+                                 }
+                                %>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>Password</td>

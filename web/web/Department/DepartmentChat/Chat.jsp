@@ -109,7 +109,7 @@
                     <div class="chat-action">
                         <div class="chat-action-inner">
                             <div class="control" style="text-align: center">
-                                <textarea class="textarea comment-textarea" id="msg" rows="2"></textarea>
+                                <textarea class="textarea comment-textarea" id="msg" rows="2" placeholder="Message" ></textarea>
                                 <input type="button" value="Send" name="btn_send"  id="btn_send" onclick="sendChat()"
                                        style="border: none;background-color: #5082c3;border-radius: 15px 10px; color: white;
                                        margin: 10px; margin-bottom: 30px ; width: 30%; height: 25px">

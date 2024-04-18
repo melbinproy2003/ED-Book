@@ -25,16 +25,17 @@ import com.squareup.picasso.Picasso;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
-    String pic[], nme[], dte[], matr[];
+    String pic[], nme[], dte[], matr[], teid[];
     String url = "http://"+ip+":8084/ED-Book/Assets/Files/Teacher/";
     Context context;
     OnItemClickListener itemClickListener;
 
     //    public Adapter(Context ct, String photo[], String name[], String date[], String materials[]) {
-    public ChatAdapter(Context ct, String name[], String photo[]) {
+    public ChatAdapter(Context ct,String tid[], String name[], String photo[]) {
         context = ct;
         pic = photo;
         nme = name;
+        teid = tid;
 //        dte = date;
 //        matr = materials;
     }
@@ -79,7 +80,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return nme.length;
+        return teid.length;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -34,9 +34,12 @@ public class LoginActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText(LoginActivity.this, "Hai", Toast.LENGTH_SHORT).show();
 
-                Email = email.getText().toString();
-                Password = password.getText().toString();
+//                Email = email.getText().toString();
+//                Password = password.getText().toString();
+                Email ="shyam@gmail.com";
+                Password = "Shyam123";
                 LoginDetails l = new LoginDetails();
                 l.execute(Email, Password);
             }

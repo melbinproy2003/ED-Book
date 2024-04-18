@@ -111,7 +111,7 @@ public class Chat extends AppCompatActivity {
             }
 
 
-            ChatAdapter myAdapter = new ChatAdapter(Chat.this,Name,Pic);
+            ChatAdapter myAdapter = new ChatAdapter(Chat.this,tid,Name,Pic);
             myAdapter.setOnItemClickListener(new ChatAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {

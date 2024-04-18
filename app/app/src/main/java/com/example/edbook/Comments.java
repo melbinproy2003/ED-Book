@@ -92,20 +92,19 @@ public class Comments extends AppCompatActivity {
                 name = new String[j.length()];
                 comment = new String[j.length()];
                 date = new String[j.length()];
-//                profile = new String[j.length()];
+                profile = new String[j.length()];
                 for (int i = 0; i < j.length(); i++) {
                     JSONObject jo = j.getJSONObject(i);
                     name[i] = jo.getString("name");
                     comment[i] = jo.getString("comment");
                     date[i] = jo.getString("date");
-//                    profile[i] = jo.getString("profile");
-//                    Toast.makeText(Comments.this, name[i], Toast.LENGTH_SHORT).show();
+                    profile[i] = jo.getString("profile");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            CommentsAdapter commentsAdapter = new CommentsAdapter(Comments.this,name,comment,date);
+            CommentsAdapter commentsAdapter = new CommentsAdapter(Comments.this,name,comment,date,profile);
             commentsAdapter.setOnItemClickListener(new CommentsAdapter.OnItemClickListener(){
                 @Override
                 public void onItemClick(int position) {

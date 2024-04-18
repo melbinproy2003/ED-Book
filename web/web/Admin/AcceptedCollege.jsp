@@ -40,6 +40,7 @@
                 <tr>
                     <th>Sl.no</th>
                     <th>Name</th>
+                    <th>address</th>
                     <th>District</th>
                     <th>Place</th>
                     <th>Contact</th>
@@ -58,6 +59,7 @@
                 <tr>
                     <td><%=i%></td>
                     <td><%=rs.getString("college_name")%></td>
+                    <td><%=rs.getString("college_address")%></td>
                     <td><%=rs.getString("district_name")%></td>
                     <td><%=rs.getString("place_name")%></td>
                     <td><%=rs.getString("college_contact")%></td>

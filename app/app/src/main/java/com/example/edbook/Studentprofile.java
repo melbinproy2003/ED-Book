@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +21,8 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class Studentprofile extends AppCompatActivity {
 
@@ -95,7 +100,23 @@ public class Studentprofile extends AppCompatActivity {
                     course.setText(jo.getString("course"));
                     batch.setText(jo.getString("batch"));
                     contact.setText(jo.getString("contact"));
-                    Picasso.get().load(url+jo.getString("profile")).into(photo);
+                    String photoBase64 =jo.getString("profile");
+                    String base64Data = photoBase64.substring(photoBase64.indexOf(',') + 1);
+                    try {
+                        byte[] decodedBytes = Base64.decode(base64Data, Base64.DEFAULT);
+                        if (decodedBytes != null && decodedBytes.length > 0) {
+                            Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                            if (decodedBitmap != null) {
+                                photo.setImageBitmap(decodedBitmap);
+                            } else {
+                                Log.e("Bitmap Decoding", "Decoded bitmap is null");
+                            }
+                        } else {
+                            Log.e("Decoded Bytes", "Decoded byte array is null or empty");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        Log.e("Base64 Decoding", "Invalid Base64 string", e);
+                    }
 
 //                    Toast.makeText(Studentprofile.this, "success", Toast.LENGTH_SHORT).show();
 

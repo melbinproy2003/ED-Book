@@ -117,6 +117,8 @@ public class Chat extends AppCompatActivity {
                 public void onItemClick(int position) {
                     Intent i = new Intent(Chat.this, Chatbox.class);
                     i.putExtra("id", tid[position]);
+                    i.putExtra("name", Name[position]);
+                    i.putExtra("photo", Pic[position]);
                     startActivity(i);
                 }
             });

@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Myaccount extends AppCompatActivity {
 
-    Button b1,b2;
+    Button b1,b2,b3;
     String name;
     TextView Name;
 
@@ -67,6 +67,7 @@ public class Myaccount extends AppCompatActivity {
 
         b1 = findViewById(R.id.myprofile);
         b2 = findViewById(R.id.password);
+        b3 = findViewById(R.id.lecture);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +80,13 @@ public class Myaccount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Myaccount.this,ChangePassword.class));
+            }
+        });
+
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Myaccount.this,lecture.class));
             }
         });
     }

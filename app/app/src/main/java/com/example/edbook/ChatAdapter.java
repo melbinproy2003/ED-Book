@@ -4,6 +4,10 @@ package com.example.edbook;
 import static com.example.edbook.WebServiceCaller.ip;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +54,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Picasso.get().load(url+pic[position]).into(holder.propic);
+//        Picasso.get().load(url+pic[position]).into(holder.propic);
+        String photoBase64 = pic[position];
+        String base64Data = photoBase64.substring(photoBase64.indexOf(',') + 1);
+        try {
+            byte[] decodedBytes = Base64.decode(base64Data, Base64.DEFAULT);
+            if (decodedBytes != null && decodedBytes.length > 0) {
+                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                if (decodedBitmap != null) {
+                    holder.propic.setImageBitmap(decodedBitmap);
+                } else {
+                    Log.e("Bitmap Decoding", "Decoded bitmap is null");
+                }
+            } else {
+                Log.e("Decoded Bytes", "Decoded byte array is null or empty");
+            }
+        } catch (IllegalArgumentException e) {
+            Log.e("Base64 Decoding", "Invalid Base64 string", e);
+        }
         holder.name.setText(nme[position]);
 //        holder.date.setText(dte[position]);
 //        holder.material.setText(matr[position]);

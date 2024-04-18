@@ -8,7 +8,7 @@
         android:id="@+id/chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="70dp"
         android:layout_marginTop="10dp"
         android:background="@color/lightgray">
 
@@ -28,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp">
 
                 <TextView
@@ -35,8 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HELLO"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 

@@ -142,7 +142,7 @@
                     <div class="columns is-vcentered">
                         <div class="column is-6 image-column">
                             <!--Illustration-->
-                            <img class="light-image login-image" src="Assets/friendskit/assets/img/illustrations/login.svg" alt="">
+                            <img class="light-image login-image" src="Assets/friendskit/assets/img/illustrations/undraw_login_re_4vu2.svg" alt="">
                             <img class="dark-image login-image" src="Assets/friendskit/assets/img/illustrations/login-dark.svg" alt="">
                         </div>
                         <div class="column is-6">

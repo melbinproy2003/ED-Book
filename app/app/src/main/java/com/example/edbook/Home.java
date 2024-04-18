@@ -92,34 +92,13 @@ public class Home extends AppCompatActivity implements HomeAdapter.OnItemClickLi
         @Override
         protected void onPostExecute (String s){
             super.onPostExecute(s);
-            JSONArray j = null;
-            try {
-                j = new JSONArray(s);
-                name = new String[j.length()];
-                cid = new String[j.length()];
-                content = new String[j.length()];
-                post = new String[j.length()];
-                profile = new String[j.length()];
-                profileurl = new String[j.length()];
-                for (int i = 0; i < j.length(); i++) {
-                    JSONObject jo = j.getJSONObject(i);
-                    cid[i] = jo.getString("cid");
-                    name[i] = jo.getString("name");
-                    content[i] = jo.getString("content");
-                    post[i] = jo.getString("post");
-                    profile[i] = jo.getString("profile");
-                    profileurl[i] = jo.getString("profileurl");
-//                    Toast.makeText(Home.this, name[i], Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-            HomeAdapter homeAdapter = new HomeAdapter(Home.this, name, content, post, profile,profileurl);
-            homeAdapter.setLikeClickListener((HomeAdapter.OnItemClickListener) Home.this);
-            homeAdapter.setCommentClickListener((HomeAdapter.OnItemClickListener) Home.this);
-            recyclerView.setAdapter(homeAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(Home.this));
+
+//            HomeAdapter homeAdapter = new HomeAdapter(Home.this, name, content, post, profile,profileurl);
+//            homeAdapter.setLikeClickListener((HomeAdapter.OnItemClickListener) Home.this);
+//            homeAdapter.setCommentClickListener((HomeAdapter.OnItemClickListener) Home.this);
+//            recyclerView.setAdapter(homeAdapter);
+//            recyclerView.setLayoutManager(new LinearLayoutManager(Home.this));
         }
 
     }

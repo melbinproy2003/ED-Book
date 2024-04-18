@@ -6,5 +6,13 @@
     <color name="gray">#899190</color>
     <color name="lightgray">#BDC5C4</color>
     <color name="my_light_primary">#FFFFFF</color>
+    <color name="my_dark_primary">#000000</color>
     <color name="pink">#DA4FED</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="green">#15910C</color>
+    <color name="lavender">#8692f7</color>
+    <color name="grey">#d2d2d2</color>
 </resources>

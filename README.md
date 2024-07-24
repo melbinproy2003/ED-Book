@@ -44,9 +44,6 @@ ED-Book is a web application designed to facilitate transparent communication wi
 4. Push to the branch (`git push origin feature-branch`).
 5. Open a pull request.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Contact
 For any inquiries or questions, please contact:
 - **Name**: Melbin P Roy
